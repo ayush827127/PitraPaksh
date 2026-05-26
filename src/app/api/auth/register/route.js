@@ -1,13 +1,12 @@
 import bcrypt from 'bcryptjs'
-import connectDB from '../../../db/connect'
-import User from '../../../models/User'
+import connectDB from '../../../../lib/db/connect'
+import User from '../../../../lib/models/User'
 
 export async function POST(request) {
   try {
     const body = await request.json()
     const { name, email, password, phone } = body
 
-    // ── Validate required fields ──────────────────────────
     if (!name || !email || !password) {
       return Response.json(
         { success: false, message: 'Name, email, and password are required' },
@@ -15,7 +14,6 @@ export async function POST(request) {
       )
     }
 
-    // ── Validate email format ─────────────────────────────
     const emailRegex = /^\S+@\S+\.\S+$/
     if (!emailRegex.test(email)) {
       return Response.json(
@@ -24,7 +22,6 @@ export async function POST(request) {
       )
     }
 
-    // ── Validate password strength ────────────────────────
     if (password.length < 8) {
       return Response.json(
         { success: false, message: 'Password must be at least 8 characters' },
@@ -34,7 +31,6 @@ export async function POST(request) {
 
     await connectDB()
 
-    // ── Check for duplicate email ─────────────────────────
     const existingUser = await User.findOne({ email: email.toLowerCase().trim() })
     if (existingUser) {
       return Response.json(
@@ -43,10 +39,8 @@ export async function POST(request) {
       )
     }
 
-    // ── Hash password ─────────────────────────────────────
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    // ── Create user ───────────────────────────────────────
     const user = await User.create({
       name: name.trim(),
       email: email.toLowerCase().trim(),
@@ -54,24 +48,15 @@ export async function POST(request) {
       phone: phone?.trim() || null,
     })
 
-    // ── Return safe user object (no password) ─────────────
     return Response.json(
       {
         success: true,
         message: 'Account created successfully',
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          role: user.role,
-          createdAt: user.createdAt,
-        },
+        user: { id: user._id, name: user.name, email: user.email, role: user.role },
       },
       { status: 201 }
     )
   } catch (error) {
-    // Mongoose duplicate key error
     if (error.code === 11000) {
       return Response.json(
         { success: false, message: 'An account with this email already exists' },
@@ -79,7 +64,6 @@ export async function POST(request) {
       )
     }
 
-    // Mongoose validation error
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map((e) => e.message)
       return Response.json(
@@ -88,7 +72,7 @@ export async function POST(request) {
       )
     }
 
-    console.error('[register] Unexpected error:', error)
+    console.error('[register]', error)
     return Response.json(
       { success: false, message: 'Something went wrong. Please try again.' },
       { status: 500 }

@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import AuthModal from './AuthModal'
+import { useSession, signOut } from 'next-auth/react'
+import AuthModal from '../auth/AuthModal'
 
 const serviceLinks = [
   { label: 'Pind Daan', href: '/services/pind-daan' },
@@ -26,6 +27,8 @@ export default function Navbar() {
   const [servicesOpen, setServicesOpen] = useState(false)
   const [authOpen, setAuthOpen] = useState(false)
   const [authTab, setAuthTab] = useState('login')
+  const { data: session, status } = useSession()
+  const isLoggedIn = status === 'authenticated'
 
   function openAuth(tab = 'login') {
     setAuthTab(tab)
@@ -120,9 +123,26 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="hidden lg:flex items-center gap-2">
-            <button onClick={() => openAuth('login')} className="px-4 py-2 text-sm font-body text-ink border border-gold/40 rounded-[--radius-btn] hover:border-saffron hover:text-saffron transition-colors">
-              Login
-            </button>
+            {isLoggedIn ? (
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-cream rounded-[--radius-btn] border border-gold/30">
+                  <div className="w-6 h-6 rounded-full bg-saffron flex items-center justify-center text-white text-xs font-body font-semibold">
+                    {session.user.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-sm font-body text-ink">{session.user.name}</span>
+                </div>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="px-4 py-2 text-sm font-body text-maroon border border-maroon/30 rounded-[--radius-btn] hover:bg-maroon hover:text-white transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => openAuth('login')} className="px-4 py-2 text-sm font-body text-ink border border-gold/40 rounded-[--radius-btn] hover:border-saffron hover:text-saffron transition-colors">
+                Login
+              </button>
+            )}
             <Link href="/services" className="px-5 py-2 bg-saffron text-white text-sm font-body font-medium rounded-[--radius-btn] hover:bg-maroon transition-colors shadow-sm">
               Book Now
             </Link>
@@ -181,9 +201,26 @@ export default function Navbar() {
           ))}
 
           <div className="flex items-center gap-3 pt-4">
-            <button onClick={() => openAuth('login')} className="flex-1 text-center py-2.5 text-sm font-body text-ink border border-gold/40 rounded-[--radius-btn] hover:border-saffron hover:text-saffron transition-colors">
-              Login
-            </button>
+            {isLoggedIn ? (
+              <div className="flex-1 flex items-center justify-between px-4 py-2.5 bg-cream border border-gold/30 rounded-[--radius-btn]">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full bg-saffron flex items-center justify-center text-white text-xs font-semibold">
+                    {session.user.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-sm font-body text-ink">{session.user.name}</span>
+                </div>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="text-xs font-body text-maroon hover:underline"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => openAuth('login')} className="flex-1 text-center py-2.5 text-sm font-body text-ink border border-gold/40 rounded-[--radius-btn] hover:border-saffron hover:text-saffron transition-colors">
+                Login
+              </button>
+            )}
             <Link href="/services" className="flex-1 text-center py-2.5 bg-saffron text-white text-sm font-body font-medium rounded-[--radius-btn] hover:bg-maroon transition-colors" onClick={() => setMobileOpen(false)}>
               Book Now
             </Link>

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { signIn } from 'next-auth/react'
 
 export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
   const [tab, setTab] = useState(defaultTab)
@@ -43,13 +44,12 @@ export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
     setSuccess('')
     setLoading(true)
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: loginForm.email, password: loginForm.password }),
+      const result = await signIn('credentials', {
+        email:    loginForm.email,
+        password: loginForm.password,
+        redirect: false,
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Login failed')
+      if (result?.error) throw new Error('Invalid email or password')
       setSuccess('Logged in successfully!')
       setTimeout(onClose, 1200)
     } catch (err) {
@@ -152,6 +152,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
           {/* Google SSO */}
           <button
             type="button"
+            onClick={() => signIn('google', { callbackUrl: '/' })}
             className="w-full flex items-center justify-center gap-3 py-2.5 border border-gold/40 rounded-lg text-sm font-body text-ink hover:bg-cream transition-colors mb-5"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
