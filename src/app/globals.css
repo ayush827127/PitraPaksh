@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─────────────────────────────────────────────────────────
+     COLOR PALETTE  —  Spiritual Premium (PDF Section 11)
+     Change values here; every page updates automatically.
+  ───────────────────────────────────────────────────────── */
+
+  /* Primary */
+  --color-saffron:  #D97706;   /* CTA buttons, highlights         */
+  --color-maroon:   #7F1D1D;   /* hover states, logo, depth       */
+  --color-gold:     #FBBF24;   /* accents, icons, footer headings */
+  --color-cream:    #FFF7ED;   /* page background                 */
+
+  /* Text */
+  --color-ink:      #1C1917;   /* primary body text               */
+  --color-muted:    #78716C;   /* secondary / caption text        */
+
+  /* Supporting */
+  --color-navy:     #1A3C6B;   /* navbar, section headings        */
+  --color-sky:      #4A7FB5;   /* links, subtext                  */
+  --color-gold-soft:#C9A84C;   /* calendar, admin accents         */
+
+  /* ─────────────────────────────────────────────────────────
+     TYPOGRAPHY  —  (PDF Section 12)
+     Fonts are loaded in layout.jsx via next/font/google.
+  ───────────────────────────────────────────────────────── */
+
+  --font-heading: var(--font-cormorant), Georgia, serif;
+  --font-body:    var(--font-inter), system-ui, sans-serif;
+
+  /* ─────────────────────────────────────────────────────────
+     RADIUS  —  reusable shape tokens
+  ───────────────────────────────────────────────────────── */
+
+  --radius-btn:  9999px;   /* pill buttons  */
+  --radius-card: 0.75rem;  /* cards, panels */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #D97706;
+  color: #fff;
+}
