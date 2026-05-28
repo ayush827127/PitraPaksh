@@ -18,8 +18,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Pitra Paksh Portal",
-  description: "Ancestral ritual booking platform for Pind Daan & Shradh ceremonies",
+  title: "PitraPaksh | Gaya Puja Services",
+  description: "Trusted ancestral ritual planning, premium pilgrimage support, and curated Gaya puja services.",
 };
 
 export default function RootLayout({ children }) {

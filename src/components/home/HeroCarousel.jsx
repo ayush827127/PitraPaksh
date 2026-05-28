@@ -100,7 +100,7 @@ export default function HeroCarousel() {
       <div className="absolute inset-0 bg-black/50" />
 
       {/* ── Bottom fade ────────────────────────────────────── */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black/40 to-transparent" />
 
       {/* ── Slide content ──────────────────────────────────── */}
       <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
