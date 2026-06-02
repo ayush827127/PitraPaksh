@@ -1,44 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  /* ─────────────────────────────────────────────────────────
-     COLOR PALETTE  —  Spiritual Premium (PDF Section 11)
-     Change values here; every page updates automatically.
-  ───────────────────────────────────────────────────────── */
-
-  /* Primary */
-  --color-saffron:  #D97706;   /* CTA buttons, highlights         */
-  --color-maroon:   #7F1D1D;   /* hover states, logo, depth       */
-  --color-gold:     #FBBF24;   /* accents, icons, footer headings */
-  --color-cream:    #FFF7ED;   /* page background                 */
-
-  /* Text */
-  --color-ink:      #1C1917;   /* primary body text               */
-  --color-muted:    #78716C;   /* secondary / caption text        */
-
-  /* Supporting */
-  --color-navy:     #1A3C6B;   /* navbar, section headings        */
-  --color-sky:      #4A7FB5;   /* links, subtext                  */
-  --color-gold-soft:#C9A84C;   /* calendar, admin accents         */
-
-  /* ─────────────────────────────────────────────────────────
-     TYPOGRAPHY  —  (PDF Section 12)
-     Fonts are loaded in layout.jsx via next/font/google.
-  ───────────────────────────────────────────────────────── */
+  --color-saffron:  #D97706;
+  --color-maroon:   #7F1D1D;
+  --color-gold:     #FBBF24;
+  --color-cream:    #FFF7ED;
+  --color-ink:      #1C1917;
+  --color-muted:    #78716C;
+  --color-navy:     #1A3C6B;
+  --color-sky:      #4A7FB5;
+  --color-gold-soft:#C9A84C;
 
   --font-heading: var(--font-cormorant), Georgia, serif;
   --font-body:    var(--font-inter), system-ui, sans-serif;
 
-  /* ─────────────────────────────────────────────────────────
-     RADIUS  —  reusable shape tokens
-  ───────────────────────────────────────────────────────── */
-
-  --radius-btn:  9999px;   /* pill buttons  */
-  --radius-card: 0.75rem;  /* cards, panels */
+  --radius-btn:  9999px;
+  --radius-card: 0.75rem;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(251, 191, 36, 0.12), transparent 25%),
+    linear-gradient(180deg, #fffdf8 0%, #fffaf4 34%, #ffffff 100%);
+  color: var(--color-ink);
 }
 
 ::selection {
@@ -63,3 +51,11 @@ html {
 .animate-progress {
   animation: progress 5s linear forwards;
 }
+
+.section-surface {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  box-shadow: 0 18px 60px -30px rgba(127, 29, 29, 0.32);
+  backdrop-filter: blur(6px);
+}
+

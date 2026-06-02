@@ -24,7 +24,7 @@ export default function Footer() {
   return (
     <footer>
       {/* Gold divider strip */}
-      <div className="h-1 bg-gradient-to-r from-maroon via-gold to-maroon" />
+      <div className="h-1 bg-linear-to-r from-maroon via-gold to-maroon" />
 
       {/* Main footer */}
       <div className="bg-maroon text-cream">

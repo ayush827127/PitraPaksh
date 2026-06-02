@@ -12,16 +12,6 @@ export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
   const [registerForm, setRegisterForm] = useState({ name: '', email: '', password: '' })
 
   useEffect(() => {
-    setTab(defaultTab)
-  }, [defaultTab])
-
-  useEffect(() => {
-    if (!isOpen) {
-      setError('')
-      setSuccess('')
-      setLoginForm({ email: '', password: '' })
-      setRegisterForm({ name: '', email: '', password: '' })
-    }
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -89,7 +79,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
     >
@@ -103,7 +93,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
       <div className="relative bg-white rounded-[--radius-card] shadow-2xl w-full max-w-md overflow-hidden">
 
         {/* Decorative top bar */}
-        <div className="h-1.5 bg-gradient-to-r from-saffron via-gold to-maroon" />
+        <div className="h-1.5 bg-linear-to-r from-saffron via-gold to-maroon" />
 
         {/* Close button */}
         <button

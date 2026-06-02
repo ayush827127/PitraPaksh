@@ -19,6 +19,7 @@ const navLinks = [
   { label: 'Calendar', href: '/calendar' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Blog', href: '/blog' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ]
 
