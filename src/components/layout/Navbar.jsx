@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import AuthModal from '../auth/AuthModal'
@@ -26,16 +26,29 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false)
+  const [profileMobileOpen, setProfileMobileOpen] = useState(false)
   const [authOpen, setAuthOpen] = useState(false)
   const [authTab, setAuthTab] = useState('login')
   const { data: session, status } = useSession()
   const isLoggedIn = status === 'authenticated'
+  const profileRef = useRef(null)
 
   function openAuth(tab = 'login') {
     setAuthTab(tab)
     setAuthOpen(true)
     setMobileOpen(false)
   }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
     <header className="sticky top-0 z-50">
@@ -125,19 +138,44 @@ export default function Navbar() {
           {/* Right actions */}
           <div className="hidden lg:flex items-center gap-2">
             {isLoggedIn ? (
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-cream rounded-[--radius-btn] border border-gold/30">
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => setProfileOpen((open) => !open)}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-cream rounded-[--radius-btn] border border-gold/30 hover:border-saffron transition-colors"
+                >
                   <div className="w-6 h-6 rounded-full bg-saffron flex items-center justify-center text-white text-xs font-body font-semibold">
                     {session.user.name?.charAt(0).toUpperCase()}
                   </div>
-                  <span className="text-sm font-body text-ink">{session.user.name}</span>
-                </div>
-                <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="px-4 py-2 text-sm font-body text-maroon border border-maroon/30 rounded-[--radius-btn] hover:bg-maroon hover:text-white transition-colors"
-                >
-                  Logout
+                  <span className="text-sm font-body text-ink max-w-30 truncate">{session.user.name}</span>
+                  <svg className={`w-3.5 h-3.5 text-muted transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
                 </button>
+
+                {profileOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-card shadow-xl border border-gold/30 py-1.5 z-50">
+                    <div className="px-4 py-3 border-b border-gold/20">
+                      <p className="text-sm font-body font-semibold text-ink truncate">{session.user.name}</p>
+                      <p className="mt-0.5 text-xs font-body text-muted truncate">{session.user.email}</p>
+                    </div>
+                    <Link
+                      href="/account/orders"
+                      onClick={() => setProfileOpen(false)}
+                      className="block px-4 py-2.5 text-sm font-body text-ink hover:bg-cream hover:text-saffron transition-colors"
+                    >
+                      My Orders
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setProfileOpen(false)
+                        signOut({ callbackUrl: '/' })
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm font-body text-maroon hover:bg-cream transition-colors border-t border-gold/20 mt-1"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <button onClick={() => openAuth('login')} className="px-4 py-2 text-sm font-body text-ink border border-gold/40 rounded-[--radius-btn] hover:border-saffron hover:text-saffron transition-colors">
@@ -201,23 +239,45 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <div className="flex items-center gap-3 pt-4">
-            {isLoggedIn ? (
-              <div className="flex-1 flex items-center justify-between px-4 py-2.5 bg-cream border border-gold/30 rounded-[--radius-btn]">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-saffron flex items-center justify-center text-white text-xs font-semibold">
+          {isLoggedIn && (
+            <div className="border-b border-cream">
+              <button
+                className="w-full flex items-center justify-between py-3 text-sm font-body text-ink hover:text-saffron transition-colors"
+                onClick={() => setProfileMobileOpen((open) => !open)}
+              >
+                <span className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-saffron flex items-center justify-center text-white text-xs font-semibold">
                     {session.user.name?.charAt(0).toUpperCase()}
-                  </div>
-                  <span className="text-sm font-body text-ink">{session.user.name}</span>
+                  </span>
+                  {session.user.name}
+                </span>
+                <svg className={`w-3.5 h-3.5 transition-transform ${profileMobileOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {profileMobileOpen && (
+                <div className="pb-3 pl-9 flex flex-col gap-1">
+                  <p className="py-1 text-xs font-body text-muted truncate">{session.user.email}</p>
+                  <Link
+                    href="/account/orders"
+                    className="py-2 text-sm font-body text-muted hover:text-saffron transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    My Orders
+                  </Link>
+                  <button
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="py-2 text-left text-sm font-body text-maroon"
+                  >
+                    Logout
+                  </button>
                 </div>
-                <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="text-xs font-body text-maroon hover:underline"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
+              )}
+            </div>
+          )}
+
+          <div className="flex items-center gap-3 pt-4">
+            {!isLoggedIn && (
               <button onClick={() => openAuth('login')} className="flex-1 text-center py-2.5 text-sm font-body text-ink border border-gold/40 rounded-[--radius-btn] hover:border-saffron hover:text-saffron transition-colors">
                 Login
               </button>

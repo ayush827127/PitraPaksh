@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getServiceBySlug, services } from '../../../lib/data/siteData'
+import BookingPaymentCard from '../../../components/services/BookingPaymentCard'
 
 export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }))
@@ -113,12 +114,7 @@ export default async function ServiceDetailPage({ params }) {
                 </div>
               </div>
 
-              <div className="mt-5 space-y-2">
-                <input type="date" className="w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" />
-                <input type="text" placeholder="Guest name" className="w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" />
-                <input type="tel" placeholder="Mobile number" className="w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" />
-                <button className="w-full rounded-full bg-maroon px-4 py-2 text-sm font-semibold text-white">Request booking preview</button>
-              </div>
+              <BookingPaymentCard service={service} />
             </div>
           </aside>
         </div>

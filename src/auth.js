@@ -47,11 +47,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.provider === 'google') {
         try {
           await connectDB()
-          const existing = await User.findOne({ email: user.email })
+          let existing = await User.findOne({ email: user.email })
           if (!existing) {
             const randomPassword = crypto.randomBytes(32).toString('hex')
             const hashedPassword = await bcrypt.hash(randomPassword, 12)
-            await User.create({
+            existing = await User.create({
               name:       user.name,
               email:      user.email,
               password:   hashedPassword,
@@ -59,6 +59,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               role:       'user',
             })
           }
+          user.id   = existing._id.toString()
+          user.role = existing.role
           return true
         } catch (err) {
           console.error('[auth] Google signIn error:', err)
