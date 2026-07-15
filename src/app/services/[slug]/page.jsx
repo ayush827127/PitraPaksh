@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getServiceBySlug, services } from '../../../lib/data/siteData'
 import BookingPaymentCard from '../../../components/services/BookingPaymentCard'
+import HeroBackgroundImage from '../../../components/ui/HeroBackgroundImage'
 
 export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }))
@@ -36,8 +37,9 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <main className="bg-white">
-      <section className="bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
+        <HeroBackgroundImage src={service.image} alt={service.title} />
+        <div className="relative z-10 mx-auto max-w-6xl">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <p className="inline-flex rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-cream">{service.category}</p>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { brand, services } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
+import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
 const values = [
   { title: 'Sacred timing', description: 'We help pilgrims understand meaningful ritual windows and plan around them with confidence.' },
@@ -17,8 +18,9 @@ const team = [
 export default function AboutPage() {
   return (
     <main className="bg-white">
-      <section className="bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
+        <HeroBackgroundImage src="/about.png" alt={`About ${brand.name}`} />
+        <div className="relative z-10 mx-auto max-w-6xl">
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <p className="inline-flex rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-cream">

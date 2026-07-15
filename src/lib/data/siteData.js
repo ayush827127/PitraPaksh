@@ -26,7 +26,7 @@ export const services = [
     price: '₹12,500',
     duration: '4 - 6 hours',
     startingPoint: 'Gaya city / hotel pickup available',
-    image: '/placeholder-temple.svg',
+    image: '/pind-daan.jpg',
     color: 'from-saffron/90 to-maroon',
     features: [
       'Priest-led ritual and sankalpam',
@@ -58,7 +58,7 @@ export const services = [
     price: '₹15,000',
     duration: '5 - 7 hours',
     startingPoint: 'Gaya / optional pickup from nearby stay',
-    image: '/placeholder-puja.svg',
+    image: '/shraddh-karma.jpg',
     color: 'from-maroon to-saffron',
     features: [
       'Custom ritual flow for family groups',
@@ -90,7 +90,7 @@ export const services = [
     price: '₹8,500',
     duration: '2 - 4 hours',
     startingPoint: 'Gaya and surrounding sacred zones',
-    image: '/placeholder-river.svg',
+    image: '/tarpan.jpg',
     color: 'from-gold to-saffron',
     features: [
       'Sacred timing consultation',
@@ -122,7 +122,7 @@ export const services = [
     price: '₹18,000',
     duration: '6 - 8 hours',
     startingPoint: 'Gaya and river access points',
-    image: '/placeholder-gallery-1.svg',
+    image: '/asthi-visarjan.jpg',
     color: 'from-maroon to-gold',
     features: [
       'Compassion-led support',
@@ -154,7 +154,7 @@ export const services = [
     price: '₹4,500',
     duration: '1 - 3 hours',
     startingPoint: 'Online or in-person',
-    image: '/placeholder-pandit.svg',
+    image: '/pandit-booking.jpg',
     color: 'from-saffron to-cream',
     features: [
       'Verified pandit profiles',
@@ -186,7 +186,7 @@ export const services = [
     price: '₹2,200',
     duration: '30 - 60 mins',
     startingPoint: 'Video or phone call',
-    image: '/placeholder-gallery-2.svg',
+    image: '/online-consultation.png',
     color: 'from-gold to-maroon',
     features: [
       'Personalized consultation',
@@ -233,40 +233,13 @@ export const testimonials = [
   },
 ]
 
-export const blogPosts = [
-  {
-    slug: 'how-to-prepare-for-pind-daan',
-    title: 'How to Prepare for Pind Daan with Peace and Clarity',
-    excerpt: 'A practical guide for pilgrims covering family preparation, sacred timing, and what to carry for a smooth experience.',
-    readTime: '5 min read',
-    category: 'Ritual Guide',
-    image: '/placeholder-river.svg',
-  },
-  {
-    slug: 'shraddh-timing-and-calendar-planning',
-    title: 'Shraddh Timing and Sacred Calendar Planning',
-    excerpt: 'Understand how date selection, fasting windows, and local temple schedules shape a meaningfulShraddh ceremony.',
-    readTime: '6 min read',
-    category: 'Calendar',
-    image: '/placeholder-temple.svg',
-  },
-  {
-    slug: 'what-to-expect-at-vishnupad-temple',
-    title: 'What to Expect at Vishnupad Temple During Peak Ritual Days',
-    excerpt: 'Helpful insights on temple flow, crowd patterns, and the spiritual atmosphere pilgrims often experience in Gaya.',
-    readTime: '4 min read',
-    category: 'Local Guide',
-    image: '/placeholder-gallery-3.svg',
-  },
-]
-
 export const galleryItems = [
-  { title: 'Falgu River ritual view', image: '/placeholder-river.svg', category: 'Ritual View' },
-  { title: 'Temple ceremony preparation', image: '/placeholder-temple.svg', category: 'Temple Support' },
-  { title: 'Pandit consultation briefing', image: '/placeholder-pandit.svg', category: 'Priest Guidance' },
-  { title: 'Sacred offering setup', image: '/placeholder-puja.svg', category: 'Ceremony Setup' },
-  { title: 'Family guidance moment', image: '/placeholder-gallery-1.svg', category: 'Family Ritual' },
-  { title: 'Remote consultation flow', image: '/placeholder-gallery-2.svg', category: 'Virtual Support' },
+  { title: 'Falgu River ritual view', image: '/falgu-river-ritual-view.png', category: 'Ritual View' },
+  { title: 'Temple ceremony preparation', image: '/temple-ceremony-preparation.png', category: 'Temple Support' },
+  { title: 'Pandit consultation briefing', image: '/pandit-consultation-briefing.png', category: 'Priest Guidance' },
+  { title: 'Sacred offering setup', image: '/sacred-offering-setup.png', category: 'Ceremony Setup' },
+  { title: 'Family guidance moment', image: '/family-guidance-moment.png', category: 'Family Ritual' },
+  { title: 'Remote consultation flow', image: '/remote-consultation-flow.png', category: 'Virtual Support' },
 ]
 
 export const faqItems = [

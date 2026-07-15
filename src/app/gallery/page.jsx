@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import { galleryItems } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
+import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
 export default function GalleryPage() {
   return (
     <main className="bg-white">
-      <section className="bg-linear-to-br from-saffron to-maroon px-4 py-16 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-linear-to-br from-saffron to-maroon px-4 py-16 text-white sm:px-6 lg:px-8">
+        <HeroBackgroundImage src="/gallery.png" alt="Gallery & visual story" />
+        <div className="relative z-10 mx-auto max-w-6xl">
           <p className="inline-flex rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-cream">Gallery & visual story</p>
           <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">A warm visual journey through sacred moments and guided rituals.</h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80">Placeholder imagery is arranged in a way that can later be replaced with real temple, ritual, and hospitality photography without changing the layout structure.</p>

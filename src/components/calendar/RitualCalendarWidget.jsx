@@ -1,0 +1,203 @@
+'use client'
+
+import { useMemo, useState } from 'react'
+import SectionHeading from '../ui/SectionHeading'
+
+const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+function formatEventDate(isoDate) {
+  const date = new Date(`${isoDate}T00:00:00`)
+  return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+function initialMonth(events) {
+  if (!events.length) {
+    const now = new Date()
+    return { year: now.getFullYear(), month: now.getMonth() + 1 }
+  }
+
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date))
+  const upcoming = sorted.find((event) => event.date >= todayIso)
+  const target = upcoming ?? sorted[sorted.length - 1]
+  const [year, month] = target.date.split('-').map(Number)
+  return { year, month }
+}
+
+export default function RitualCalendarWidget({ events }) {
+  const years = useMemo(
+    () => [...new Set(events.map((event) => Number(event.date.slice(0, 4))))].sort((a, b) => a - b),
+    [events]
+  )
+  const minYear = years[0]
+  const maxYear = years[years.length - 1]
+
+  const [current, setCurrent] = useState(() => initialMonth(events))
+
+  const isAtMin = current.year === minYear && current.month === 1
+  const isAtMax = current.year === maxYear && current.month === 12
+
+  function goToPrevMonth() {
+    setCurrent((prev) => {
+      if (prev.year === minYear && prev.month === 1) return prev
+      return prev.month === 1 ? { year: prev.year - 1, month: 12 } : { year: prev.year, month: prev.month - 1 }
+    })
+  }
+
+  function goToNextMonth() {
+    setCurrent((prev) => {
+      if (prev.year === maxYear && prev.month === 12) return prev
+      return prev.month === 12 ? { year: prev.year + 1, month: 1 } : { year: prev.year, month: prev.month + 1 }
+    })
+  }
+
+  function goToYear(year) {
+    const firstEventInYear = events.find((event) => event.date.startsWith(String(year)))
+    const month = firstEventInYear ? Number(firstEventInYear.date.slice(5, 7)) : 1
+    setCurrent({ year, month })
+  }
+
+  const { monthLabel, leadingBlanks, dayCells, peakDays } = useMemo(() => {
+    const { year, month } = current
+    const daysInMonth = new Date(year, month, 0).getDate()
+    const firstWeekdayJs = new Date(year, month - 1, 1).getDay()
+    const firstWeekdayMonday = (firstWeekdayJs + 6) % 7
+    const monthPrefix = `${year}-${String(month).padStart(2, '0')}`
+
+    const peaks = new Set(
+      events
+        .filter((event) => event.date.startsWith(monthPrefix))
+        .map((event) => Number(event.date.slice(8, 10)))
+    )
+
+    return {
+      monthLabel: `${monthNames[month - 1]} ${year}`,
+      leadingBlanks: Array.from({ length: firstWeekdayMonday }),
+      dayCells: Array.from({ length: daysInMonth }, (_, i) => i + 1),
+      peakDays: peaks,
+    }
+  }, [current, events])
+
+  const yearEvents = useMemo(
+    () => events.filter((event) => event.date.startsWith(String(current.year))),
+    [events, current.year]
+  )
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <SectionHeading
+          eyebrow="Sacred calendar"
+          title="Plan ahead across upcoming Pitru Paksha windows"
+          description="Browse month to month to see indicative ritual windows, then confirm exact tithis with your priest before booking."
+        />
+        {years.length ? (
+          <div className="flex gap-2 rounded-full border border-gold/30 bg-white p-1">
+            {years.map((year) => (
+              <button
+                key={year}
+                type="button"
+                onClick={() => goToYear(year)}
+                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
+                  current.year === year ? 'bg-maroon text-white' : 'text-muted hover:text-ink'
+                }`}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </div>
+
+      {events.length === 0 ? (
+        <div className="mt-8 rounded-[1.75rem] border border-gold/20 bg-cream/60 p-8 text-center text-sm text-muted">
+          No ritual calendar events have been published yet.
+        </div>
+      ) : (
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[1.75rem] border border-gold/20 bg-white p-5 shadow-sm">
+            <div className="flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={goToPrevMonth}
+                disabled={isAtMin}
+                aria-label="Previous month"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/30 text-ink transition-colors hover:bg-cream disabled:cursor-not-allowed disabled:opacity-30"
+              >
+                ‹
+              </button>
+              <div className="text-center">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-saffron">Calendar overview</p>
+                <h2 className="mt-1 text-2xl font-semibold text-ink">{monthLabel}</h2>
+              </div>
+              <button
+                type="button"
+                onClick={goToNextMonth}
+                disabled={isAtMax}
+                aria-label="Next month"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/30 text-ink transition-colors hover:bg-cream disabled:cursor-not-allowed disabled:opacity-30"
+              >
+                ›
+              </button>
+            </div>
+
+            <div className="mt-5 grid grid-cols-7 gap-2 text-center text-xs font-semibold text-muted">
+              {weekdayLabels.map((day) => (
+                <div key={day}>{day}</div>
+              ))}
+            </div>
+
+            <div className="mt-3 grid grid-cols-7 gap-2">
+              {leadingBlanks.map((_, index) => (
+                <div key={`blank-${index}`} />
+              ))}
+              {dayCells.map((day) => (
+                <div
+                  key={day}
+                  className={`rounded-xl border p-2 text-xs ${
+                    peakDays.has(day) ? 'border-saffron/30 bg-white text-ink' : 'border-gold/20 bg-cream/60 text-muted'
+                  }`}
+                >
+                  <div className="font-semibold">{day}</div>
+                  {peakDays.has(day) ? (
+                    <div className="mt-2 rounded-full bg-maroon px-1 py-0.5 text-[9px] text-white">Peak</div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="rounded-3xl border border-gold/20 bg-cream/60 p-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-saffron">Planning highlights</p>
+              <h2 className="mt-2 text-xl font-semibold text-ink">Recommended sacred windows for {current.year}</h2>
+              <p className="mt-2 text-sm text-muted">Use these milestones to structure reminders, consultations, and ceremonial bookings.</p>
+            </div>
+
+            <div className="space-y-3">
+              {yearEvents.map((event) => (
+                <div key={event.id} className={`rounded-[1.25rem] border p-4 ${event.mood}`}>
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-lg font-semibold">{formatEventDate(event.date)}</p>
+                      <p className="mt-1 text-xs opacity-80">{event.note}</p>
+                    </div>
+                    <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em]">{event.label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-xs leading-5 text-muted">
+              Dates are indicative planning estimates. Confirm exact tithis with an authoritative panchang before relying on them for real bookings.
+            </p>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}

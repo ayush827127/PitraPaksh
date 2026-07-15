@@ -259,10 +259,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = 'login' }) {
                 <input
                   type="password"
                   required
-                  minLength={6}
+                  minLength={8}
                   value={registerForm.password}
                   onChange={e => setRegisterForm(f => ({ ...f, password: e.target.value }))}
-                  placeholder="Min. 6 characters"
+                  placeholder="Min. 8 characters"
                   className="w-full px-4 py-2.5 border border-gold/40 rounded-lg text-sm font-body text-ink placeholder:text-muted/60 focus:outline-none focus:border-saffron focus:ring-2 focus:ring-saffron/20 transition"
                 />
               </div>

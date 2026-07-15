@@ -1,4 +1,5 @@
 import { brand } from '../../lib/data/siteData'
+import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
 const supportChannels = [
   { label: 'Phone', value: brand.phone, detail: 'Call for booking support and ceremonial guidance.' },
@@ -9,8 +10,9 @@ const supportChannels = [
 export default function ContactPage() {
   return (
     <main className="bg-white">
-      <section className="bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
+        <HeroBackgroundImage src="/contact.png" alt="Contact concierge" />
+        <div className="relative z-10 mx-auto max-w-6xl">
           <p className="inline-flex rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-cream">Contact concierge</p>
           <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">Speak with a pilgrimage planning specialist.</h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80">From booking support to spiritual coordination, the contact experience is built for clear communication, human guidance, and future CRM or admin integration.</p>

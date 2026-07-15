@@ -28,8 +28,6 @@ export default function BookingPaymentCard({ service }) {
   const [status, setStatus] = useState('idle') // idle | loading | success | error
   const [message, setMessage] = useState('')
 
-  const amount = Number(String(service.price).replace(/[^0-9.]/g, ''))
-
   const handleChange = (field) => (event) => {
     setForm((prev) => ({ ...prev, [field]: event.target.value }))
   }
@@ -56,9 +54,7 @@ export default function BookingPaymentCard({ service }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount,
           serviceSlug: service.slug,
-          serviceTitle: service.title,
           date: form.date,
           name: form.name,
           mobile: form.mobile,
@@ -114,9 +110,18 @@ export default function BookingPaymentCard({ service }) {
         },
       })
 
-      razorpay.on('payment.failed', () => {
+      razorpay.on('payment.failed', async () => {
         setStatus('error')
         setMessage('Payment failed. Please try again.')
+        try {
+          await fetch('/api/payment/mark-failed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ razorpayOrderId: orderData.orderId }),
+          })
+        } catch {
+          // best-effort — the Razorpay webhook reconciles order status if this fails
+        }
       })
 
       razorpay.open()
@@ -154,6 +159,7 @@ export default function BookingPaymentCard({ service }) {
     <div className="mt-5 space-y-2">
       <input
         type="date"
+        min={new Date().toISOString().slice(0, 10)}
         value={form.date}
         onChange={handleChange('date')}
         className="w-full rounded-xl border border-gold/30 px-3 py-2 text-sm"

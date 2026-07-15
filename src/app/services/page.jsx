@@ -1,12 +1,14 @@
 import { services } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
 import ServiceCard from '../../components/ui/ServiceCard'
+import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
 export default function ServicesPage() {
   return (
     <main className="bg-white">
-      <section className="bg-linear-to-br from-cream to-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-linear-to-br from-cream to-white px-4 py-16 sm:px-6 lg:px-8">
+        <HeroBackgroundImage src="/services.png" alt="Service catalogue" />
+        <div className="relative z-10 mx-auto max-w-6xl">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <p className="inline-flex rounded-full bg-maroon/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-maroon">Service catalogue</p>
