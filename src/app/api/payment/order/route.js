@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { razorpay } from '../../../../lib/payment/razorpay'
+import { getRazorpay } from '../../../../lib/payment/razorpay'
 import { auth } from '../../../../auth'
 import connectDB from '../../../../lib/db/connect'
 import Order from '../../../../lib/models/Order'
@@ -34,7 +34,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Invalid service price' }, { status: 400 })
     }
 
-    const order = await razorpay.orders.create({
+    const order = await getRazorpay().orders.create({
       amount: amountInPaise,
       currency: 'INR',
       receipt: `${service.slug}-${Date.now()}`,
