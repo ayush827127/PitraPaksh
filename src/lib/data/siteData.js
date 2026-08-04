@@ -3,9 +3,9 @@ export const brand = {
   tagline: 'Gaya Puja Services',
   description: 'Trusted ancestral ritual booking, compassionate guidance, and premium pilgrimage support in Gaya.',
   location: 'Vishnupad Temple Road, Gaya, Bihar 823001',
-  phone: '+91 99999 99999',
-  email: 'info@pitrapaksh.com',
-  whatsapp: 'https://wa.me/919999999999',
+  phone: '+91 91997 70868',
+  email: 'vishnukumarnpsp@gmail.com',
+  whatsapp: 'https://wa.me/919199770868',
 }
 
 export const homeStats = [
@@ -26,7 +26,14 @@ export const services = [
     price: '₹12,500',
     duration: '4 - 6 hours',
     startingPoint: 'Gaya city / hotel pickup available',
-    image: '/pind-daan.jpg',
+    image: '/pinddaan1.jpeg',
+    gallery: [
+      '/pinddaan1.jpeg',
+      '/pinddaan2.jpeg',
+      '/pinddaan3.jpeg',
+      '/pinddaan4.jpeg',
+      '/pinddaan5.jpeg',
+    ],
     color: 'from-saffron/90 to-maroon',
     features: [
       'Priest-led ritual and sankalpam',
@@ -58,7 +65,15 @@ export const services = [
     price: '₹15,000',
     duration: '5 - 7 hours',
     startingPoint: 'Gaya / optional pickup from nearby stay',
-    image: '/shraddh-karma.jpg',
+    image: '/karma3.jpeg',
+    gallery: [
+      '/karma1.jpeg',
+      '/karma3.jpeg',
+      '/karma2.jpeg',
+      '/pinddaan4.jpeg',
+      '/pinddaan5.jpeg',
+      // '/shraddh-timing-and-calendar-planning.png',
+    ],
     color: 'from-maroon to-saffron',
     features: [
       'Custom ritual flow for family groups',
@@ -91,6 +106,13 @@ export const services = [
     duration: '2 - 4 hours',
     startingPoint: 'Gaya and surrounding sacred zones',
     image: '/tarpan.jpg',
+    gallery: [
+      '/tarpan.jpg',
+      '/falgu-river-ritual-view.png',
+      '/sacred-offering-setup.png',
+      '/shraddh-timing-and-calendar-planning.png',
+      '/what-to-expect-at-vishnupad-temple.png',
+    ],
     color: 'from-gold to-saffron',
     features: [
       'Sacred timing consultation',
@@ -122,7 +144,14 @@ export const services = [
     price: '₹18,000',
     duration: '6 - 8 hours',
     startingPoint: 'Gaya and river access points',
-    image: '/asthi-visarjan.jpg',
+    image: '/asthi1.jpg',
+    gallery: [
+      '/asthi1.jpg',
+      '/asthi2.jpg',
+      '/asthi3.jpg',
+      '/asthi4.jpg',
+      '/asthi5.jpg',
+    ],
     color: 'from-maroon to-gold',
     features: [
       'Compassion-led support',
@@ -155,6 +184,13 @@ export const services = [
     duration: '1 - 3 hours',
     startingPoint: 'Online or in-person',
     image: '/pandit-booking.jpg',
+    gallery: [
+      '/pandit-booking.jpg',
+      '/pandit-consultation-briefing.png',
+      '/how-to-prepare-for-pind-daan.png',
+      '/family-guidance-moment.png',
+      '/temple-ceremony-preparation.png',
+    ],
     color: 'from-saffron to-cream',
     features: [
       'Verified pandit profiles',
@@ -187,6 +223,13 @@ export const services = [
     duration: '30 - 60 mins',
     startingPoint: 'Video or phone call',
     image: '/online-consultation.png',
+    gallery: [
+      '/online-consultation.png',
+      '/remote-consultation-flow.png',
+      '/pandit-consultation-briefing.png',
+      '/shraddh-timing-and-calendar-planning.png',
+      '/family-guidance-moment.png',
+    ],
     color: 'from-gold to-maroon',
     features: [
       'Personalized consultation',

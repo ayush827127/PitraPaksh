@@ -1,9 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getServiceBySlug, services } from '../../../lib/data/siteData'
+import { brand, getServiceBySlug, services } from '../../../lib/data/siteData'
 import BookingPaymentCard from '../../../components/services/BookingPaymentCard'
-import HeroBackgroundImage from '../../../components/ui/HeroBackgroundImage'
+import ServiceHeroCarousel from '../../../components/services/ServiceHeroCarousel'
+
+const trustPoints = [
+  'Verified & experienced pandits',
+  '2,400+ rituals guided',
+  '100% refund on cancellation',
+]
 
 export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }))
@@ -37,23 +43,42 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <main className="bg-white">
-      <section className="relative overflow-hidden bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
-        <HeroBackgroundImage src={service.image} alt={service.title} />
-        <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <section className="bg-linear-to-br from-maroon to-saffron px-4 py-14 text-white sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div>
               <p className="inline-flex rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-cream">{service.category}</p>
               <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">{service.title}</h1>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80">{service.description}</p>
+              <p className="mt-4 max-w-xl text-sm leading-7 text-white/85">{service.description}</p>
+
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/85">
+                {trustPoints.map((point) => (
+                  <li key={point} className="flex items-center gap-2">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white/20 text-[10px]">✓</span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+
               <div className="mt-6 flex flex-wrap gap-3">
                 <div className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-maroon">{service.price}</div>
                 <div className="rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white">{service.duration}</div>
               </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="#booking" className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-maroon transition-colors hover:bg-cream">
+                  Book This Puja
+                </a>
+                <a
+                  href={`tel:${brand.phone.replace(/\s+/g, '')}`}
+                  className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  Call Now
+                </a>
+              </div>
             </div>
 
-            <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-              <Image src={service.image} alt={service.title} width={800} height={600} className="h-64 w-full rounded-3xl object-cover" />
-            </div>
+            <ServiceHeroCarousel images={service.gallery ?? [service.image]} title={service.title} />
           </div>
         </div>
       </section>
@@ -95,7 +120,7 @@ export default async function ServiceDetailPage({ params }) {
             </article>
           </div>
 
-          <aside className="rounded-[1.75rem] border border-gold/20 bg-white p-5 shadow-sm">
+          <aside id="booking" className="scroll-mt-24 rounded-[1.75rem] border border-gold/20 bg-white p-5 shadow-sm">
             <div className="rounded-3xl bg-cream p-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-saffron">Booking preview</p>
               <h2 className="mt-2 text-2xl font-semibold text-ink">Planning preview</h2>
