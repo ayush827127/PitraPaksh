@@ -1,0 +1,37 @@
+import { NextResponse } from 'next/server'
+import connectDB from '../../../lib/db/connect'
+import ContactQuery from '../../../lib/models/ContactQuery'
+
+export async function POST(request) {
+  try {
+    const { name, email, mobile, serviceInterest, message } = await request.json()
+
+    if (!name || !email || !mobile || !message) {
+      return NextResponse.json(
+        { success: false, message: 'Name, email, mobile, and message are required' },
+        { status: 400 }
+      )
+    }
+
+    await connectDB()
+    await ContactQuery.create({
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      mobile: mobile.trim(),
+      serviceInterest: serviceInterest?.trim() || '',
+      message: message.trim(),
+    })
+
+    return NextResponse.json({ success: true }, { status: 201 })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map((e) => e.message)
+      return NextResponse.json({ success: false, message: messages[0] }, { status: 400 })
+    }
+    console.error('[contact]', error)
+    return NextResponse.json(
+      { success: false, message: 'Something went wrong. Please try again.' },
+      { status: 500 }
+    )
+  }
+}

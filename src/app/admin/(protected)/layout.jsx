@@ -7,6 +7,8 @@ const navItems = [
   { href: '/admin', label: 'Dashboard' },
   { href: '/admin/blog', label: 'Blog posts' },
   { href: '/admin/calendar', label: 'Ritual calendar' },
+  { href: '/admin/queries', label: 'Contact queries' },
+  { href: '/admin/users', label: 'Users' },
   { href: '/admin/payments', label: 'Payments' },
 ]
 

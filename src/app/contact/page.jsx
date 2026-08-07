@@ -1,5 +1,6 @@
 import { brand } from '../../lib/data/siteData'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
+import ContactForm from '../../components/contact/ContactForm'
 
 const supportChannels = [
   { label: 'Phone', value: brand.phone, detail: 'Call for booking support and ceremonial guidance.' },
@@ -40,42 +41,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <form className="rounded-[1.75rem] border border-gold/20 bg-white p-5 shadow-sm">
-            <div className="grid gap-3 md:grid-cols-2">
-              <label className="text-sm font-medium text-ink">
-                Name
-                <input type="text" className="mt-1 w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" placeholder="Your name" />
-              </label>
-              <label className="text-sm font-medium text-ink">
-                Mobile
-                <input type="tel" className="mt-1 w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" placeholder="Your number" />
-              </label>
-            </div>
-
-            <label className="mt-3 block text-sm font-medium text-ink">
-              Email
-              <input type="email" className="mt-1 w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" placeholder="you@example.com" />
-            </label>
-
-            <label className="mt-3 block text-sm font-medium text-ink">
-              Service interest
-              <select className="mt-1 w-full rounded-xl border border-gold/30 px-3 py-2 text-sm">
-                <option>Pind Daan</option>
-                <option>Shraddh Karma</option>
-                <option>Tarpan</option>
-                <option>Asthi Visarjan</option>
-                <option>Pandit Booking</option>
-                <option>Online Consultation</option>
-              </select>
-            </label>
-
-            <label className="mt-3 block text-sm font-medium text-ink">
-              Message
-              <textarea rows="5" className="mt-1 w-full rounded-xl border border-gold/30 px-3 py-2 text-sm" placeholder="Tell us about your ritual planning needs." />
-            </label>
-
-            <button className="mt-4 w-full rounded-full bg-maroon px-4 py-2.5 text-sm font-semibold text-white">Send inquiry</button>
-          </form>
+          <ContactForm />
         </div>
       </section>
     </main>

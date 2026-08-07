@@ -3,16 +3,20 @@ import connectDB from '../../../lib/db/connect'
 import BlogPost from '../../../lib/models/BlogPost'
 import CalendarEvent from '../../../lib/models/CalendarEvent'
 import Order from '../../../lib/models/Order'
+import User from '../../../lib/models/User'
+import ContactQuery from '../../../lib/models/ContactQuery'
 
 export const dynamic = 'force-dynamic'
 
 async function getStats() {
   await connectDB()
 
-  const [blogCount, calendarCount, orders] = await Promise.all([
+  const [blogCount, calendarCount, orders, userCount, newQueryCount] = await Promise.all([
     BlogPost.countDocuments(),
     CalendarEvent.countDocuments(),
     Order.find().select('amount status').lean(),
+    User.countDocuments(),
+    ContactQuery.countDocuments({ status: 'new' }),
   ])
 
   const paidOrders = orders.filter((order) => order.status === 'paid')
@@ -26,6 +30,8 @@ async function getStats() {
     paidCount: paidOrders.length,
     pendingCount: pendingOrders.length,
     totalRevenue,
+    userCount,
+    newQueryCount,
   }
 }
 
@@ -35,6 +41,8 @@ export default async function AdminDashboardPage() {
   const cards = [
     { label: 'Blog posts', value: stats.blogCount, href: '/admin/blog' },
     { label: 'Calendar events', value: stats.calendarCount, href: '/admin/calendar' },
+    { label: 'Registered users', value: stats.userCount, href: '/admin/users' },
+    { label: 'New contact queries', value: stats.newQueryCount, href: '/admin/queries' },
     { label: 'Total orders', value: stats.totalOrders, href: '/admin/payments' },
     { label: 'Paid orders', value: stats.paidCount, href: '/admin/payments' },
     { label: 'Pending orders', value: stats.pendingCount, href: '/admin/payments' },

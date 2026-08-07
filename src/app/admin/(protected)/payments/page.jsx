@@ -20,6 +20,7 @@ async function getOrders() {
   return orders.map((order) => ({
     id: order._id.toString(),
     user: order.userId ? { name: order.userId.name, email: order.userId.email } : null,
+    mobile: order.mobile,
     serviceTitle: order.serviceTitle,
     amount: order.amount,
     currency: order.currency,
@@ -60,6 +61,7 @@ export default async function AdminPaymentsPage() {
             <tr>
               <th className="px-4 py-3">Date</th>
               <th className="px-4 py-3">User</th>
+              <th className="px-4 py-3">Mobile</th>
               <th className="px-4 py-3">Service</th>
               <th className="px-4 py-3">Amount</th>
               <th className="px-4 py-3">Status</th>
@@ -82,6 +84,7 @@ export default async function AdminPaymentsPage() {
                     <span className="text-xs text-muted">Unknown user</span>
                   )}
                 </td>
+                <td className="px-4 py-3 text-ink">{order.mobile}</td>
                 <td className="px-4 py-3 text-ink">{order.serviceTitle}</td>
                 <td className="px-4 py-3 font-medium text-ink">
                   {order.currency} {order.amount.toLocaleString('en-IN')}
@@ -99,7 +102,7 @@ export default async function AdminPaymentsPage() {
             ))}
             {orders.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted">
+                <td colSpan={7} className="px-4 py-8 text-center text-muted">
                   No payments yet.
                 </td>
               </tr>
