@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { services } from '../../lib/data/siteData'
+import { isValidMobile, sanitizeMobileInput } from '../../lib/validation'
 
 const emptyForm = { name: '', mobile: '', email: '', serviceInterest: services[0]?.title ?? '', message: '' }
 
@@ -11,11 +12,21 @@ export default function ContactForm() {
   const [message, setMessage] = useState('')
 
   function update(field) {
-    return (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
+    return (e) => {
+      const value = field === 'mobile' ? sanitizeMobileInput(e.target.value) : e.target.value
+      setForm((f) => ({ ...f, [field]: value }))
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
+
+    if (!isValidMobile(form.mobile)) {
+      setStatus('error')
+      setMessage('Please enter a valid 10-digit mobile number.')
+      return
+    }
+
     setStatus('loading')
     setMessage('')
 
@@ -58,6 +69,9 @@ export default function ContactForm() {
           Mobile
           <input
             type="tel"
+            inputMode="numeric"
+            pattern="[0-9]{10}"
+            maxLength={10}
             required
             value={form.mobile}
             onChange={update('mobile')}
@@ -117,6 +131,13 @@ export default function ContactForm() {
       >
         {status === 'loading' ? 'Sending…' : 'Send inquiry'}
       </button>
+      <p className="mt-3 text-center text-xs text-muted">
+        Our concierge team typically replies within 30 minutes during service hours. Prefer instant help?{' '}
+        <a href="https://wa.me/919199770868" target="_blank" rel="noopener noreferrer" className="font-semibold text-green-700 hover:underline">
+          Chat on WhatsApp
+        </a>
+        .
+      </p>
     </form>
   )
 }

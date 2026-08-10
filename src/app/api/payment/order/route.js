@@ -4,6 +4,7 @@ import { auth } from '../../../../auth'
 import connectDB from '../../../../lib/db/connect'
 import Order from '../../../../lib/models/Order'
 import { getServiceBySlug } from '../../../../lib/data/siteData'
+import { isValidMobile } from '../../../../lib/validation'
 
 export async function POST(request) {
   try {
@@ -20,6 +21,9 @@ export async function POST(request) {
     }
     if (!date || !name || !mobile) {
       return NextResponse.json({ error: 'Date, name, and mobile number are required' }, { status: 400 })
+    }
+    if (!isValidMobile(mobile)) {
+      return NextResponse.json({ error: 'Please enter a valid 10-digit mobile number' }, { status: 400 })
     }
 
     const todayIso = new Date().toISOString().slice(0, 10)

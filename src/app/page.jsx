@@ -4,6 +4,7 @@ import FeaturedServicesSection from '../components/home/FeaturedServicesSection'
 import WhyChooseUsSection from '../components/home/WhyChooseUsSection'
 import ProcessSection from '../components/home/ProcessSection'
 import TestimonialsSection from '../components/home/TestimonialsSection'
+import LocationSection from '../components/home/LocationSection'
 import BookingCTASection from '../components/home/BookingCTASection'
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <WhyChooseUsSection />
       <ProcessSection />
       <TestimonialsSection />
+      <LocationSection />
       <BookingCTASection />
     </main>
   )

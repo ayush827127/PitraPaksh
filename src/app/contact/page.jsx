@@ -1,6 +1,7 @@
 import { brand } from '../../lib/data/siteData'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 import ContactForm from '../../components/contact/ContactForm'
+import LocationMap from '../../components/ui/LocationMap'
 
 const supportChannels = [
   { label: 'Phone', value: brand.phone, detail: 'Call for booking support and ceremonial guidance.' },
@@ -42,6 +43,11 @@ export default function ContactPage() {
           </div>
 
           <ContactForm />
+        </div>
+
+        <div className="mt-6">
+          <p className="mb-3 text-sm font-semibold text-ink">Find us on the map</p>
+          <LocationMap />
         </div>
       </section>
     </main>

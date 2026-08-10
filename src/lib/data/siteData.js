@@ -6,6 +6,9 @@ export const brand = {
   phone: '+91 91997 70868',
   email: 'vishnukumarnpsp@gmail.com',
   whatsapp: 'https://wa.me/919199770868',
+  // No API key needed — Google's classic query-based embed, safe for production use.
+  mapEmbedUrl: 'https://www.google.com/maps?q=Vishnupad+Temple+Road,+Gaya,+Bihar+823001&output=embed',
+  mapDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Vishnupad+Temple+Road,+Gaya,+Bihar+823001',
 }
 
 export const homeStats = [
@@ -285,24 +288,141 @@ export const galleryItems = [
   { title: 'Remote consultation flow', image: '/remote-consultation-flow.png', category: 'Virtual Support' },
 ]
 
-export const faqItems = [
+export const faqCategories = [
   {
-    question: 'How do I book a ritual service?',
-    answer: 'Select a service, choose a preferred date, and share your family details. Our team confirms priest availability and sends the complete itinerary.',
+    category: 'Booking & Scheduling',
+    items: [
+      {
+        question: 'How do I book a ritual service?',
+        answer: 'Log in, select a service, choose your preferred date, and share your name and mobile number. Once payment is confirmed, your booking appears under "My Orders" and our team reaches out to coordinate priest and temple logistics.',
+      },
+      {
+        question: 'How far in advance should I book?',
+        answer: 'We recommend booking at least a few days ahead, especially during Pitru Paksha and other high-demand sacred windows, so we can confirm your preferred priest and temple time slot. Check the Calendar / Panchang page for upcoming planning windows.',
+      },
+      {
+        question: 'Can I request a specific pandit?',
+        answer: 'Yes. Our Pandit Booking service lets you share your requirements and ritual style preferences, and we match you with one of our verified pandits based on availability.',
+      },
+      {
+        question: 'Can I change my preferred date after booking?',
+        answer: 'Yes — contact us by phone or WhatsApp with your Order ID (visible on the "My Orders" page) as early as possible, and we’ll help you move to a new available date, subject to priest and temple availability.',
+      },
+    ],
   },
   {
-    question: 'Can I book online consultation from outside India?',
-    answer: 'Yes. Remote consultations are available for pilgrims living abroad and for families planning travel before arrival.',
+    category: 'Services & Pricing',
+    items: [
+      {
+        question: 'What services do you offer?',
+        answer: 'Pind Daan, Shraddh Karma, Tarpan, Asthi Visarjan, Pandit Booking, and Online Consultation — each with its own inclusions, duration, and pricing on the Services page.',
+      },
+      {
+        question: "What's the difference between Pind Daan, Shraddh Karma, and Tarpan?",
+        answer: 'Pind Daan is the core ancestral rite performed at the Falgu River and Vishnupad Temple. Shraddh Karma is a broader family ceremony for ancestral observance. Tarpan is a focused water-offering ritual, often done during specific sacred windows. Each service page has a full description, process, and inclusions list.',
+      },
+      {
+        question: "Can't travel to Gaya? Is remote support available?",
+        answer: 'Yes — our Online Consultation service connects you with a priest by video or phone call for ritual planning, calendar guidance, and remote support, ideal for NRI families and pilgrims planning travel later.',
+      },
+      {
+        question: 'Can I combine multiple services, like Pind Daan and Asthi Visarjan, in one visit?',
+        answer: 'Yes, many families combine services during a single trip. Book each service separately or contact our team directly to coordinate a combined multi-day itinerary.',
+      },
+      {
+        question: 'Are the listed prices final?',
+        answer: 'Listed prices reflect our standard packages. If your family has a larger group or custom requirements, we’ll confirm any adjustments with you before you pay — nothing changes after payment without your agreement.',
+      },
+    ],
   },
   {
-    question: 'Do you offer temple and transport coordination?',
-    answer: 'Yes, local site coordination, temple logistics, and local transport support can be arranged as add-ons and custom support.',
+    category: 'Payments & Security',
+    items: [
+      {
+        question: 'What payment methods can I use?',
+        answer: 'All major cards, UPI, netbanking, and wallets, powered securely by Razorpay.',
+      },
+      {
+        question: 'Is it safe to pay online here?',
+        answer: 'Yes. Payments are processed directly by Razorpay, a PCI-DSS compliant payment gateway. We never see or store your card, UPI, or bank account details on our servers.',
+      },
+      {
+        question: 'Will I get a receipt for my payment?',
+        answer: 'Your payment and booking details are recorded under "My Orders" in your account immediately after a successful payment. If you need a formal receipt for your records, contact our support team with your Order ID.',
+      },
+      {
+        question: 'My payment was deducted but the booking didn’t confirm — what do I do?',
+        answer: 'Please don’t attempt the payment again. Contact us immediately with your payment reference number, and we’ll verify it against Razorpay’s records and resolve it promptly.',
+      },
+    ],
   },
   {
-    question: 'What payment options are available?',
-    answer: 'We offer secure online booking with transparent pricing and support for later adjustments based on the selected ritual package.',
+    category: 'Travel & On-Ground Logistics',
+    items: [
+      {
+        question: 'Do you provide hotel pickup?',
+        answer: 'Several services include optional hotel pickup within Gaya city — check the "starting point" detail on each service page. Let us know your stay location when booking so we can coordinate.',
+      },
+      {
+        question: 'What should I bring to the ceremony?',
+        answer: 'After booking, our team shares a checklist tailored to your ritual, which typically covers family/gotra details to prepare in advance and any items the priest requests. Comfortable, modest attire suitable for temple visits is recommended.',
+      },
+      {
+        question: 'How long does a ritual take?',
+        answer: 'It varies by service — from 30–60 minutes for an online consultation up to 6–8 hours for Asthi Visarjan. Exact durations are listed on each service page.',
+      },
+      {
+        question: 'Is accommodation included in the package?',
+        answer: 'Accommodation isn’t included by default, but our team can help coordinate nearby stays and local transport as part of your planning — just mention it when you book or reach out beforehand.',
+      },
+    ],
+  },
+  {
+    category: 'Cancellations & Rescheduling',
+    items: [
+      {
+        question: 'Can I cancel a booking?',
+        answer: 'Yes — contact us by phone or WhatsApp with your Order ID as soon as your plans change, and our team will guide you through cancellation.',
+      },
+      {
+        question: 'Can I reschedule instead of cancelling?',
+        answer: 'In most cases, yes. We’ll do our best to move your booking to a new date, subject to priest and temple availability at that time.',
+      },
+      {
+        question: 'What if I need to change plans at the last minute?',
+        answer: 'Reach out to us right away — the earlier you let us know, the more options we have. Our team handles last-minute changes case by case, so talk to us before assuming anything is fixed.',
+      },
+    ],
+  },
+  {
+    category: 'Account & Support',
+    items: [
+      {
+        question: 'Do I need an account to book a service?',
+        answer: 'Yes — sign up with email or Google login so we can confirm your booking and let you track it under "My Orders" anytime.',
+      },
+      {
+        question: 'How do I check my booking status?',
+        answer: 'Go to "My Orders" from your account menu — each booking shows a clear status: pending, paid, or failed.',
+      },
+      {
+        question: 'Are your pandits verified?',
+        answer: 'Yes — every pandit on our platform is vetted for credentials and ritual expertise before being onboarded, so you can book with confidence.',
+      },
+      {
+        question: 'How can I reach your support team?',
+        answer: 'Call or WhatsApp us anytime using the floating buttons on any page, use the contact form, or email us directly. We typically respond within 30 minutes during service hours.',
+      },
+      {
+        question: 'Can families living outside India use this service?',
+        answer: 'Absolutely. We regularly support NRI families through online consultations and remote booking coordination before they travel to Gaya.',
+      },
+    ],
   },
 ]
+
+// Flat list — kept for anywhere a simple, ungrouped FAQ array is needed.
+export const faqItems = faqCategories.flatMap((group) => group.items)
 
 export const ritualCalendar = [
   { day: 'May 28', label: 'Pind Daan focus', note: 'High-demand sacred day', mood: 'bg-maroon text-white' },
@@ -314,3 +434,72 @@ export const ritualCalendar = [
 export function getServiceBySlug(slug) {
   return services.find((service) => service.slug === slug)
 }
+
+// The traditional story behind why Gaya is considered uniquely significant for
+// Pind Daan — presented as belief/tradition, not asserted as historical fact.
+export const gayaStory = [
+  {
+    title: 'The legend of Gayasura',
+    text: 'According to Hindu tradition, Gaya takes its name from the asura Gayasura, whose body was so pure after penance that anyone touching it attained moksha. To restrain this power responsibly, Lord Vishnu is believed to have placed his foot upon Gayasura and pressed him into the earth — the imprint of that footstep is what pilgrims venerate today at Vishnupad Temple. Vishnu is said to have blessed the site so that any ancestral rite performed here would carry lasting spiritual merit.',
+  },
+  {
+    title: 'Rama, Sita, and the banks of the Falgu',
+    text: 'The Ramayana describes Lord Rama travelling to Gaya with Sita and Lakshmana to perform Pind Daan for his father, King Dashrath. As the story is told, the men were delayed, and Sita — determined not to let the sacred moment pass — offered the pind daan herself using the sand of the Falgu River, with the river, a banyan tree, and a cow as her witnesses. This is one of the reasons Gaya\'s rituals are held to be complete and binding, even when performed by a single family member.',
+  },
+  {
+    title: 'Why Gaya is considered unique',
+    text: 'Ancestral rites (Shraddh) are traditionally performed at many sacred sites across India, often on a recurring basis. Gaya is regarded differently: tradition holds that a Pind Daan performed here, at the Falgu River and Vishnupad Temple, offers lasting peace to the ancestors\' souls without needing to be repeated elsewhere — which is why the town is often referred to with reverence as "Gayaji" by pilgrims.',
+  },
+]
+
+// Framed as traditional belief within Hindu dharma — not a medical, legal, or
+// financial claim of any kind.
+export const pindDaanBenefits = [
+  {
+    title: 'Moksha for ancestors',
+    description: 'Traditionally believed to help free departed souls from the cycle of rebirth and guide them toward lasting peace.',
+  },
+  {
+    title: 'Relief from Pitru Dosha',
+    description: 'In Vedic astrology, unresolved ancestral debt (Pitru Dosha) is associated with recurring obstacles in health, career, or family life. Pind Daan is the traditional remedy.',
+  },
+  {
+    title: 'Fulfilling Pitru Rin',
+    description: 'Hindu dharma describes a lifelong debt owed to one\'s ancestors (Pitru Rin). Performing this rite is considered a son or descendant\'s way of honoring that duty.',
+  },
+  {
+    title: 'Family harmony and blessings',
+    description: 'Many families report a sense of closure and renewed harmony after completing the rite — traditionally seen as a blessing carried forward by peaceful ancestors.',
+  },
+  {
+    title: 'A one-time, lasting rite',
+    description: 'Unlike Shraddh performed at other sacred sites, tradition holds that Pind Daan at Gaya need not be repeated in future years.',
+  },
+  {
+    title: 'Emotional and spiritual closure',
+    description: 'For many families, the ceremony offers a meaningful, structured way to grieve, honor a loved one\'s memory, and move forward together.',
+  },
+]
+
+// Practical, stable geography — kept free of time-sensitive details like flight
+// schedules or fares, which our concierge team confirms directly with families.
+export const travelToGaya = [
+  {
+    mode: 'By Air',
+    title: 'Gaya Airport (GAY)',
+    description: 'Gaya has its own airport, about 7 km from the city centre and Vishnupad Temple. It runs domestic flights year-round and additional seasonal international flights (serving Buddhist pilgrims visiting nearby Bodh Gaya) during peak pilgrimage months.',
+    tip: 'If direct flights to Gaya are limited for your dates, Patna\'s Jay Prakash Narayan International Airport is the nearest major alternative, roughly 100 km / 2–2.5 hours away by road.',
+  },
+  {
+    mode: 'By Train',
+    title: 'Gaya Junction',
+    description: 'Gaya Junction is a major railway station on the Delhi–Kolkata Grand Chord line, with direct trains from Delhi, Kolkata, Patna, Varanasi, Mumbai, and most major cities — making rail one of the most convenient ways to reach Gaya.',
+    tip: 'The station is close to the city centre, a short taxi or auto-rickshaw ride from Vishnupad Temple.',
+  },
+  {
+    mode: 'By Road',
+    title: 'National Highway 83',
+    description: 'Gaya is well connected by road via NH83, roughly 100 km (2–2.5 hours) from Patna. Regular buses and taxis run between Gaya, Patna, and Bodh Gaya.',
+    tip: 'Bodh Gaya is only about 13 km away, so many families combine both destinations in one trip.',
+  },
+]

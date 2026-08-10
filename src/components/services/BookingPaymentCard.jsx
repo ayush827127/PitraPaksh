@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import AuthModal from '../auth/AuthModal'
+import { isValidMobile, sanitizeMobileInput } from '../../lib/validation'
 
 function loadRazorpayScript() {
   return new Promise((resolve) => {
@@ -29,13 +30,20 @@ export default function BookingPaymentCard({ service }) {
   const [message, setMessage] = useState('')
 
   const handleChange = (field) => (event) => {
-    setForm((prev) => ({ ...prev, [field]: event.target.value }))
+    const value = field === 'mobile' ? sanitizeMobileInput(event.target.value) : event.target.value
+    setForm((prev) => ({ ...prev, [field]: value }))
   }
 
   const handlePay = async () => {
     if (!form.date || !form.name || !form.mobile) {
       setStatus('error')
       setMessage('Please fill in date, name, and mobile number before proceeding.')
+      return
+    }
+
+    if (!isValidMobile(form.mobile)) {
+      setStatus('error')
+      setMessage('Please enter a valid 10-digit mobile number.')
       return
     }
 
@@ -173,6 +181,9 @@ export default function BookingPaymentCard({ service }) {
       />
       <input
         type="tel"
+        inputMode="numeric"
+        pattern="[0-9]{10}"
+        maxLength={10}
         placeholder="Mobile number"
         value={form.mobile}
         onChange={handleChange('mobile')}
@@ -186,6 +197,26 @@ export default function BookingPaymentCard({ service }) {
       >
         {status === 'loading' ? 'Processing…' : `Pay ${service.price} & Book Now`}
       </button>
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-muted">
+        <span className="inline-flex items-center gap-1">
+          <svg className="h-3 w-3 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          Secure payment via Razorpay
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <svg className="h-3 w-3 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          Verified pandits
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <svg className="h-3 w-3 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          24/7 support
+        </span>
+      </div>
       {message ? (
         <p className={`text-xs ${status === 'success' ? 'text-green-700' : 'text-red-600'}`}>{message}</p>
       ) : null}
@@ -197,7 +228,6 @@ export default function BookingPaymentCard({ service }) {
           View My Orders
         </Link>
       ) : null}
-      <p className="text-center text-[10px] uppercase tracking-[0.2em] text-muted">Test mode — no real payment is processed</p>
     </div>
   )
 }

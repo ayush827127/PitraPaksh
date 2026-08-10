@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { brand } from '../../lib/data/siteData'
 
 const serviceLinks = [
   { label: 'Pind Daan', href: '/services/pind-daan' },
@@ -103,8 +104,16 @@ export default function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="text-sm font-body text-cream/70 leading-relaxed">
-                    Vishnupad Temple Road,<br />Gaya, Bihar — 823001
+                  <span className="flex flex-col gap-1 text-sm font-body text-cream/70 leading-relaxed">
+                    <span>Vishnupad Temple Road,<br />Gaya, Bihar — 823001</span>
+                    <a
+                      href={brand.mapDirectionsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-gold hover:underline w-fit"
+                    >
+                      Get Directions →
+                    </a>
                   </span>
                 </li>
                 <li className="flex items-center gap-3">

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import connectDB from '../../../lib/db/connect'
 import ContactQuery from '../../../lib/models/ContactQuery'
+import { isValidMobile } from '../../../lib/validation'
 
 export async function POST(request) {
   try {
@@ -9,6 +10,12 @@ export async function POST(request) {
     if (!name || !email || !mobile || !message) {
       return NextResponse.json(
         { success: false, message: 'Name, email, mobile, and message are required' },
+        { status: 400 }
+      )
+    }
+    if (!isValidMobile(mobile)) {
+      return NextResponse.json(
+        { success: false, message: 'Please enter a valid 10-digit mobile number' },
         { status: 400 }
       )
     }
