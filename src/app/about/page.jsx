@@ -162,6 +162,12 @@ export default function AboutPage() {
             with your travel dates.
           </p>
         </div>
+
+        <div className="mt-4 rounded-3xl border border-gold/20 bg-cream/60 p-5 text-center">
+          <p className="text-sm leading-6 text-muted">
+            🏨 Need a place to stay? Contact our team and we can arrange a hotel with good facilities near the temple for your family.
+          </p>
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">

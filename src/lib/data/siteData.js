@@ -4,7 +4,7 @@ export const brand = {
   description: 'Trusted ancestral ritual booking, compassionate guidance, and premium pilgrimage support in Gaya.',
   location: 'Vishnupad Temple Road, Gaya, Bihar 823001',
   phone: '+91 91997 70868',
-  email: 'vishnukumarnpsp@gmail.com',
+  email: 'radhaenterprisesbr@gmail.com',
   whatsapp: 'https://wa.me/919199770868',
   // No API key needed — Google's classic query-based embed, safe for production use.
   mapEmbedUrl: 'https://www.google.com/maps?q=Vishnupad+Temple+Road,+Gaya,+Bihar+823001&output=embed',
@@ -373,7 +373,7 @@ export const faqCategories = [
       },
       {
         question: 'Is accommodation included in the package?',
-        answer: 'Accommodation isn’t included by default, but our team can help coordinate nearby stays and local transport as part of your planning — just mention it when you book or reach out beforehand.',
+        answer: 'Accommodation isn’t included by default, but if you need it, just contact us — we can arrange a hotel stay with good facilities near the temple, along with local transport, as part of your planning.',
       },
     ],
   },
