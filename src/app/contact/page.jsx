@@ -2,6 +2,17 @@ import { brand } from '../../lib/data/siteData'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 import ContactForm from '../../components/contact/ContactForm'
 
+export const metadata = {
+  title: 'Contact Us',
+  description: `Reach ${brand.name} for ritual booking support, pandit coordination, and pilgrimage planning in Gaya. Call, WhatsApp, or send an enquiry.`,
+  alternates: { canonical: '/contact' },
+  openGraph: {
+    title: `Contact ${brand.name}`,
+    description: `Reach ${brand.name} for ritual booking support, pandit coordination, and pilgrimage planning in Gaya.`,
+    url: '/contact',
+  },
+}
+
 const supportChannels = [
   { label: 'Phone', value: brand.phone, detail: 'Call for booking support and ceremonial guidance.' },
   { label: 'Email', value: brand.email, detail: 'Send itinerary questions, group planning notes, and consultation requests.' },

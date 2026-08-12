@@ -2,6 +2,26 @@ import crypto from 'crypto'
 import { NextResponse } from 'next/server'
 import connectDB from '../../../../lib/db/connect'
 import Order from '../../../../lib/models/Order'
+import '../../../../lib/models/User'
+import { sendMail } from '../../../../lib/mail/mailer'
+import { orderStatusEmail, orderAdminAlertEmail } from '../../../../lib/mail/templates'
+
+async function notifyOrderStatus(order) {
+  if (!order || !order.userId) return
+  const details = {
+    serviceTitle: order.serviceTitle,
+    preferredDate: order.preferredDate,
+    amount: order.amount,
+    currency: order.currency,
+  }
+  await Promise.all([
+    sendMail({ to: order.userId.email, ...orderStatusEmail({ name: order.name, status: order.status, ...details }) }),
+    sendMail({
+      to: process.env.ADMIN_NOTIFY_EMAIL,
+      ...orderAdminAlertEmail({ name: order.name, email: order.userId.email, mobile: order.mobile, status: order.status, ...details }),
+    }),
+  ])
+}
 
 export async function POST(request) {
   const signature = request.headers.get('x-razorpay-signature')
@@ -34,15 +54,19 @@ export async function POST(request) {
   await connectDB()
 
   if (payload.event === 'payment.captured') {
-    await Order.findOneAndUpdate(
+    const order = await Order.findOneAndUpdate(
       { razorpayOrderId: paymentEntity.order_id, status: { $ne: 'paid' } },
-      { status: 'paid', razorpayPaymentId: paymentEntity.id }
-    )
+      { status: 'paid', razorpayPaymentId: paymentEntity.id },
+      { new: true }
+    ).populate('userId', 'email')
+    await notifyOrderStatus(order)
   } else if (payload.event === 'payment.failed') {
-    await Order.findOneAndUpdate(
+    const order = await Order.findOneAndUpdate(
       { razorpayOrderId: paymentEntity.order_id, status: 'pending' },
-      { status: 'failed' }
-    )
+      { status: 'failed' },
+      { new: true }
+    ).populate('userId', 'email')
+    await notifyOrderStatus(order)
   }
 
   return NextResponse.json({ received: true })

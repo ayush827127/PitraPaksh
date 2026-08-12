@@ -4,6 +4,8 @@ import { auth } from '../../../../auth'
 import connectDB from '../../../../lib/db/connect'
 import Order from '../../../../lib/models/Order'
 import { getServiceBySlug } from '../../../../lib/data/siteData'
+import { sendMail } from '../../../../lib/mail/mailer'
+import { orderStatusEmail, orderAdminAlertEmail } from '../../../../lib/mail/templates'
 
 export async function POST(request) {
   try {
@@ -45,7 +47,7 @@ export async function POST(request) {
     })
 
     await connectDB()
-    await Order.create({
+    const dbOrder = await Order.create({
       userId: session.user.id,
       serviceSlug: service.slug,
       serviceTitle: service.title,
@@ -57,6 +59,20 @@ export async function POST(request) {
       status: 'pending',
       razorpayOrderId: order.id,
     })
+
+    const orderDetails = {
+      serviceTitle: dbOrder.serviceTitle,
+      preferredDate: dbOrder.preferredDate,
+      amount: dbOrder.amount,
+      currency: dbOrder.currency,
+    }
+    await Promise.all([
+      sendMail({ to: session.user.email, ...orderStatusEmail({ name, status: 'pending', ...orderDetails }) }),
+      sendMail({
+        to: process.env.ADMIN_NOTIFY_EMAIL,
+        ...orderAdminAlertEmail({ name, email: session.user.email, mobile, status: 'pending', ...orderDetails }),
+      }),
+    ])
 
     return NextResponse.json({
       orderId: order.id,

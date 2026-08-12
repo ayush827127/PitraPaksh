@@ -3,6 +3,25 @@ import { NextResponse } from 'next/server'
 import { auth } from '../../../../auth'
 import connectDB from '../../../../lib/db/connect'
 import Order from '../../../../lib/models/Order'
+import { sendMail } from '../../../../lib/mail/mailer'
+import { orderStatusEmail, orderAdminAlertEmail } from '../../../../lib/mail/templates'
+
+function notifyOrderStatus(order, session) {
+  if (!order) return Promise.resolve()
+  const details = {
+    serviceTitle: order.serviceTitle,
+    preferredDate: order.preferredDate,
+    amount: order.amount,
+    currency: order.currency,
+  }
+  return Promise.all([
+    sendMail({ to: session.user.email, ...orderStatusEmail({ name: order.name, status: order.status, ...details }) }),
+    sendMail({
+      to: process.env.ADMIN_NOTIFY_EMAIL,
+      ...orderAdminAlertEmail({ name: order.name, email: session.user.email, mobile: order.mobile, status: order.status, ...details }),
+    }),
+  ])
+}
 
 export async function POST(request) {
   try {
@@ -29,10 +48,12 @@ export async function POST(request) {
     await connectDB()
 
     if (!verified) {
-      await Order.findOneAndUpdate(
+      const failedOrder = await Order.findOneAndUpdate(
         { razorpayOrderId: razorpay_order_id, userId: session.user.id },
-        { status: 'failed' }
+        { status: 'failed' },
+        { new: true }
       )
+      await notifyOrderStatus(failedOrder, session)
       return NextResponse.json({ verified: false, error: 'Signature mismatch' }, { status: 400 })
     }
 
@@ -45,6 +66,8 @@ export async function POST(request) {
     if (!order) {
       return NextResponse.json({ verified: false, error: 'Order not found' }, { status: 404 })
     }
+
+    await notifyOrderStatus(order, session)
 
     return NextResponse.json({ verified: true, paymentId: razorpay_payment_id, orderId: razorpay_order_id })
   } catch (error) {

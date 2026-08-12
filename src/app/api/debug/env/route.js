@@ -13,6 +13,9 @@ export async function GET() {
     NEXT_PUBLIC_RAZORPAY_KEY_ID: !!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
     ADMIN_SESSION_SECRET: !!process.env.ADMIN_SESSION_SECRET,
     RAZORPAY_WEBHOOK_SECRET: !!process.env.RAZORPAY_WEBHOOK_SECRET,
+    EMAIL_USER: !!process.env.EMAIL_USER,
+    APP_PASSWORD: !!process.env.APP_PASSWORD,
+    ADMIN_NOTIFY_EMAIL: !!process.env.ADMIN_NOTIFY_EMAIL,
   }
 
   let mongoStatus = 'not attempted'

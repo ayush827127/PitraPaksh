@@ -6,6 +6,17 @@ import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
 export const dynamic = 'force-dynamic'
 
+export const metadata = {
+  title: 'Guides & Insights',
+  description: 'Practical guides on ritual timing, Pind Daan preparation, Vishnupad Temple visits, and sacred travel planning for pilgrims visiting Gaya.',
+  alternates: { canonical: '/blog' },
+  openGraph: {
+    title: 'Guides & Insights | PitraPaksh',
+    description: 'Practical guides on ritual timing, Pind Daan preparation, and sacred travel planning for pilgrims visiting Gaya.',
+    url: '/blog',
+  },
+}
+
 export default async function BlogPage() {
   const blogPosts = await getAllBlogPosts()
 

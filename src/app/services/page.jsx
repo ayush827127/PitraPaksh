@@ -1,7 +1,18 @@
-import { services } from '../../lib/data/siteData'
+import { services, brand } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
 import ServiceCard from '../../components/ui/ServiceCard'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
+
+export const metadata = {
+  title: 'Ritual & Puja Services in Gaya',
+  description: 'Browse Pind Daan, Shraddh Karma, Tarpan, Asthi Visarjan, pandit booking, and online consultation packages with verified priests and guided planning in Gaya.',
+  alternates: { canonical: '/services' },
+  openGraph: {
+    title: `Ritual & Puja Services | ${brand.name}`,
+    description: 'Browse Pind Daan, Shraddh Karma, Tarpan, Asthi Visarjan, pandit booking, and online consultation packages in Gaya.',
+    url: '/services',
+  },
+}
 
 export default function ServicesPage() {
   return (

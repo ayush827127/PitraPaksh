@@ -1,14 +1,9 @@
 import connectDB from '../../../../lib/db/connect'
 import Order from '../../../../lib/models/Order'
 import '../../../../lib/models/User'
+import OrderStatusSelect from '../../../../components/admin/OrderStatusSelect'
 
 export const dynamic = 'force-dynamic'
-
-const statusStyles = {
-  pending: 'bg-amber-50 text-amber-700 border-amber-200',
-  paid: 'bg-green-50 text-green-700 border-green-200',
-  failed: 'bg-red-50 text-red-700 border-red-200',
-}
 
 async function getOrders() {
   await connectDB()
@@ -90,9 +85,7 @@ export default async function AdminPaymentsPage() {
                   {order.currency} {order.amount.toLocaleString('en-IN')}
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${statusStyles[order.status] ?? ''}`}>
-                    {order.status}
-                  </span>
+                  <OrderStatusSelect orderId={order.id} status={order.status} />
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-muted">
                   <p className="truncate">{order.razorpayOrderId}</p>

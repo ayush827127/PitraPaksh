@@ -3,6 +3,10 @@ import Link from 'next/link'
 import { isAdminAuthenticated } from '../../../lib/adminGuard'
 import LogoutButton from '../../../components/admin/LogoutButton'
 
+export const metadata = {
+  robots: { index: false, follow: false, nocache: true },
+}
+
 const navItems = [
   { href: '/admin', label: 'Dashboard' },
   { href: '/admin/blog', label: 'Blog posts' },

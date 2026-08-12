@@ -3,6 +3,17 @@ import { galleryItems } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
+export const metadata = {
+  title: 'Gallery',
+  description: 'Visual highlights from Pind Daan, Shraddh Karma, and Tarpan ceremonies, temple coordination, and pilgrim support moments in Gaya.',
+  alternates: { canonical: '/gallery' },
+  openGraph: {
+    title: 'Gallery | PitraPaksh',
+    description: 'Visual highlights from ritual ceremonies, temple coordination, and pilgrim support moments in Gaya.',
+    url: '/gallery',
+  },
+}
+
 export default function GalleryPage() {
   return (
     <main className="bg-white">

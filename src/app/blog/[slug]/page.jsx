@@ -3,6 +3,9 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPostBySlug, getAllBlogPosts } from '../../../lib/data/blogRepo'
 import HeroBackgroundImage from '../../../components/ui/HeroBackgroundImage'
+import JsonLd from '../../../components/seo/JsonLd'
+import { articleSchema, breadcrumbSchema } from '../../../lib/seo/jsonld'
+import { brand } from '../../../lib/data/siteData'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,13 +15,31 @@ export async function generateMetadata({ params }) {
 
   if (!post) {
     return {
-      title: 'Article not found | PitraPaksh',
+      title: 'Article not found',
+      robots: { index: false, follow: false },
     }
   }
 
   return {
-    title: `${post.title} | PitraPaksh`,
+    title: post.title,
     description: post.excerpt,
+    keywords: [post.title, post.category, 'Gaya puja guide', 'ritual planning'],
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: 'article',
+      title: `${post.title} | ${brand.name}`,
+      description: post.excerpt,
+      url: `/blog/${post.slug}`,
+      images: [{ url: post.image, width: 1200, height: 675, alt: post.title }],
+      publishedTime: post.createdAt,
+      modifiedTime: post.updatedAt ?? post.createdAt,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} | ${brand.name}`,
+      description: post.excerpt,
+      images: [post.image],
+    },
   }
 }
 
@@ -35,6 +56,14 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <main className="bg-white">
+      <JsonLd data={articleSchema(post)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+          { name: post.title, url: `/blog/${post.slug}` },
+        ])}
+      />
       <section className="relative overflow-hidden bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
         <HeroBackgroundImage src={post.image} alt={post.title} />
         <div className="relative z-10 mx-auto max-w-4xl">

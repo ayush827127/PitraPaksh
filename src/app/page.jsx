@@ -6,6 +6,12 @@ import ProcessSection from '../components/home/ProcessSection'
 import TestimonialsSection from '../components/home/TestimonialsSection'
 import BookingCTASection from '../components/home/BookingCTASection'
 
+export const dynamic = 'force-dynamic'
+
+export const metadata = {
+  alternates: { canonical: '/' },
+}
+
 export default function Home() {
   return (
     <main className="bg-white">

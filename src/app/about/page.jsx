@@ -3,6 +3,17 @@ import { brand, services } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
+export const metadata = {
+  title: `About ${brand.name}`,
+  description: `Learn about ${brand.name}, a trusted ritual planning team offering Pind Daan, Shraddh Karma, Tarpan, and pandit booking support in Gaya, Bihar.`,
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: `About ${brand.name}`,
+    description: `Learn about ${brand.name}, a trusted ritual planning team offering sacred puja services in Gaya, Bihar.`,
+    url: '/about',
+  },
+}
+
 const values = [
   { title: 'Sacred timing', description: 'We help pilgrims understand meaningful ritual windows and plan around them with confidence.' },
   { title: 'Local coordination', description: 'Temple access, priest matching, and travel support are structured through calm, trusted planning.' },

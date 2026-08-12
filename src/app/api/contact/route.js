@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import connectDB from '../../../lib/db/connect'
 import ContactQuery from '../../../lib/models/ContactQuery'
+import { sendMail } from '../../../lib/mail/mailer'
+import { contactUserConfirmationEmail, contactAdminAlertEmail } from '../../../lib/mail/templates'
 
 export async function POST(request) {
   try {
@@ -14,13 +16,27 @@ export async function POST(request) {
     }
 
     await connectDB()
-    await ContactQuery.create({
+    const query = await ContactQuery.create({
       name: name.trim(),
       email: email.trim().toLowerCase(),
       mobile: mobile.trim(),
       serviceInterest: serviceInterest?.trim() || '',
       message: message.trim(),
     })
+
+    await Promise.all([
+      sendMail({ to: query.email, ...contactUserConfirmationEmail({ name: query.name }) }),
+      sendMail({
+        to: process.env.ADMIN_NOTIFY_EMAIL,
+        ...contactAdminAlertEmail({
+          name: query.name,
+          email: query.email,
+          mobile: query.mobile,
+          serviceInterest: query.serviceInterest,
+          message: query.message,
+        }),
+      }),
+    ])
 
     return NextResponse.json({ success: true }, { status: 201 })
   } catch (error) {

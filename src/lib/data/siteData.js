@@ -4,7 +4,7 @@ export const brand = {
   description: 'Trusted ancestral ritual booking, compassionate guidance, and premium pilgrimage support in Gaya.',
   location: 'Vishnupad Temple Road, Gaya, Bihar 823001',
   phone: '+91 91997 70868',
-  email: 'vishnukumarnpsp@gmail.com',
+  email: 'radhaenterprisesbr@gmail.com',
   whatsapp: 'https://wa.me/919199770868',
 }
 
@@ -302,13 +302,6 @@ export const faqItems = [
     question: 'What payment options are available?',
     answer: 'We offer secure online booking with transparent pricing and support for later adjustments based on the selected ritual package.',
   },
-]
-
-export const ritualCalendar = [
-  { day: 'May 28', label: 'Pind Daan focus', note: 'High-demand sacred day', mood: 'bg-maroon text-white' },
-  { day: 'Jun 02', label: 'Shraddh support window', note: 'Ideal for family visits', mood: 'bg-saffron text-white' },
-  { day: 'Jun 11', label: 'Tarpan consultation slot', note: 'Best for early planning', mood: 'bg-gold text-ink' },
-  { day: 'Jun 16', label: 'Pandit booking day', note: 'Premium priest availability', mood: 'bg-cream text-maroon border border-gold/30' },
 ]
 
 export function getServiceBySlug(slug) {

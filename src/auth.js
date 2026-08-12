@@ -6,6 +6,8 @@ import crypto from 'crypto'
 import connectDB from './lib/db/connect'
 import User from './lib/models/User'
 import { authConfig } from './auth.config'
+import { sendMail } from './lib/mail/mailer'
+import { welcomeEmail, loginAlertEmail } from './lib/mail/templates'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -29,6 +31,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (!user) return null
           const isMatch = await bcrypt.compare(credentials.password, user.password)
           if (!isMatch) return null
+          await sendMail({ to: user.email, ...loginAlertEmail({ name: user.name }) })
           return {
             id:    user._id.toString(),
             name:  user.name,
@@ -60,6 +63,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               isVerified: true,
               role:       'user',
             })
+            await sendMail({ to: existing.email, ...welcomeEmail({ name: existing.name }) })
+          } else {
+            await sendMail({ to: existing.email, ...loginAlertEmail({ name: existing.name }) })
           }
           user.id   = existing._id.toString()
           user.role = existing.role

@@ -6,6 +6,17 @@ import { getAllCalendarEvents } from '../../lib/data/calendarRepo'
 
 export const dynamic = 'force-dynamic'
 
+export const metadata = {
+  title: 'Sacred Date Calendar & Planning',
+  description: 'Plan ahead with a structured calendar of ritual windows, Pitru Paksha dates, and service availability for Gaya puja bookings.',
+  alternates: { canonical: '/calendar' },
+  openGraph: {
+    title: 'Sacred Date Calendar & Planning | PitraPaksh',
+    description: 'Plan ahead with a structured calendar of ritual windows, Pitru Paksha dates, and service availability.',
+    url: '/calendar',
+  },
+}
+
 export default async function CalendarPage() {
   const events = await getAllCalendarEvents()
 

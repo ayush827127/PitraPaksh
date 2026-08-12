@@ -1,4 +1,4 @@
-import { ritualCalendar } from '../../lib/data/siteData'
+import { getAllCalendarEvents } from '../../lib/data/calendarRepo'
 
 const steps = [
   { title: 'Choose your ritual', description: 'Browse sacred services, compare timing, and pick the right experience for your family.', step: '01' },
@@ -6,7 +6,19 @@ const steps = [
   { title: 'Attend with ease', description: 'Receive a polished itinerary, priest support, and on-ground contact during the ceremony.', step: '03' },
 ]
 
-export default function ProcessSection() {
+function formatEventDay(isoDate) {
+  const date = new Date(`${isoDate}T00:00:00`)
+  return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
+}
+
+export default async function ProcessSection() {
+  const events = await getAllCalendarEvents()
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const upcomingEvents = events
+    .filter((event) => event.date >= todayIso)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(0, 4)
+
   return (
     <section className="bg-white px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -43,17 +55,23 @@ export default function ProcessSection() {
             </div>
 
             <div className="mt-5 grid gap-3">
-              {ritualCalendar.map((item) => (
-                <div key={item.day} className={`rounded-2xl border p-4 ${item.mood}`}>
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-lg font-semibold">{item.day}</p>
-                      <p className="mt-1 text-xs opacity-80">{item.note}</p>
+              {upcomingEvents.length ? (
+                upcomingEvents.map((event) => (
+                  <div key={event.id} className={`rounded-2xl border p-4 ${event.mood}`}>
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-lg font-semibold">{formatEventDay(event.date)}</p>
+                        <p className="mt-1 text-xs opacity-80">{event.note}</p>
+                      </div>
+                      <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em]">{event.label}</span>
                     </div>
-                    <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em]">{item.label}</span>
                   </div>
+                ))
+              ) : (
+                <div className="rounded-2xl border border-gold/20 bg-cream/60 p-4 text-center text-xs text-muted">
+                  No upcoming ritual dates published yet. Check the full calendar for more.
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>

@@ -5,7 +5,8 @@ import connectDB from '../../../lib/db/connect'
 import Order from '../../../lib/models/Order'
 
 export const metadata = {
-  title: 'My Orders | PitraPaksh',
+  title: 'My Orders',
+  robots: { index: false, follow: false },
 }
 
 const statusStyles = {

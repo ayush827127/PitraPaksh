@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { brand, getServiceBySlug, services } from '../../../lib/data/siteData'
 import BookingPaymentCard from '../../../components/services/BookingPaymentCard'
 import ServiceHeroCarousel from '../../../components/services/ServiceHeroCarousel'
+import JsonLd from '../../../components/seo/JsonLd'
+import { serviceSchema, breadcrumbSchema } from '../../../lib/seo/jsonld'
 
 const trustPoints = [
   'Verified & experienced pandits',
@@ -21,13 +23,28 @@ export async function generateMetadata({ params }) {
 
   if (!service) {
     return {
-      title: 'Service not found | PitraPaksh',
+      title: 'Service not found',
+      robots: { index: false, follow: false },
     }
   }
 
   return {
-    title: `${service.title} | PitraPaksh`,
+    title: service.title,
     description: service.description,
+    keywords: [service.title, `${service.title} Gaya`, service.category, 'Gaya puja booking'],
+    alternates: { canonical: `/services/${service.slug}` },
+    openGraph: {
+      title: `${service.title} | ${brand.name}`,
+      description: service.summary,
+      url: `/services/${service.slug}`,
+      images: [{ url: service.image, width: 800, height: 600, alt: service.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${service.title} | ${brand.name}`,
+      description: service.summary,
+      images: [service.image],
+    },
   }
 }
 
@@ -43,6 +60,14 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <main className="bg-white">
+      <JsonLd data={serviceSchema(service)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' },
+          { name: service.title, url: `/services/${service.slug}` },
+        ])}
+      />
       <section className="bg-linear-to-br from-maroon to-saffron px-4 py-14 text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">

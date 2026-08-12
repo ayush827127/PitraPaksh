@@ -1,6 +1,8 @@
 import bcrypt from 'bcryptjs'
 import connectDB from '../../../../lib/db/connect'
 import User from '../../../../lib/models/User'
+import { sendMail } from '../../../../lib/mail/mailer'
+import { welcomeEmail } from '../../../../lib/mail/templates'
 
 export async function POST(request) {
   try {
@@ -47,6 +49,8 @@ export async function POST(request) {
       password: hashedPassword,
       phone: phone?.trim() || null,
     })
+
+    await sendMail({ to: user.email, ...welcomeEmail({ name: user.name }) })
 
     return Response.json(
       {

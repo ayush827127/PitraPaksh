@@ -12,6 +12,8 @@ function serialize(post) {
     image: post.image,
     content: post.content,
     takeaways: post.takeaways,
+    createdAt: post.createdAt,
+    updatedAt: post.updatedAt,
   }
 }
 
