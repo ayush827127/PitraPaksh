@@ -18,7 +18,7 @@ export const metadata = {
 export default function FAQPage() {
   return (
     <main className="bg-white">
-      <JsonLd data={faqSchema(faqItems)} />
+      <JsonLd data={faqSchema(faqCategories.flatMap((group) => group.items))} />
       <section className="relative overflow-hidden bg-linear-to-br from-maroon to-saffron px-4 py-16 text-white sm:px-6 lg:px-8">
         <HeroBackgroundImage src="/faq.png" alt="Frequently asked questions" />
         <div className="relative z-10 mx-auto max-w-6xl">

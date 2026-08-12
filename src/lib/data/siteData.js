@@ -289,22 +289,32 @@ export const galleryItems = [
   { title: 'Remote consultation flow', image: '/remote-consultation-flow.png', category: 'Virtual Support' },
 ]
 
-export const faqItems = [
+export const faqCategories = [
   {
-    question: 'How do I book a ritual service?',
-    answer: 'Select a service, choose a preferred date, and share your family details. Our team confirms priest availability and sends the complete itinerary.',
+    category: 'Booking & Planning',
+    items: [
+      {
+        question: 'How do I book a ritual service?',
+        answer: 'Select a service, choose a preferred date, and share your family details. Our team confirms priest availability and sends the complete itinerary.',
+      },
+      {
+        question: 'Can I book online consultation from outside India?',
+        answer: 'Yes. Remote consultations are available for pilgrims living abroad and for families planning travel before arrival.',
+      },
+      {
+        question: 'Do you offer temple and transport coordination?',
+        answer: 'Yes, local site coordination, temple logistics, and local transport support can be arranged as add-ons and custom support.',
+      },
+    ],
   },
   {
-    question: 'Can I book online consultation from outside India?',
-    answer: 'Yes. Remote consultations are available for pilgrims living abroad and for families planning travel before arrival.',
-  },
-  {
-    question: 'Do you offer temple and transport coordination?',
-    answer: 'Yes, local site coordination, temple logistics, and local transport support can be arranged as add-ons and custom support.',
-  },
-  {
-    question: 'What payment options are available?',
-    answer: 'We offer secure online booking with transparent pricing and support for later adjustments based on the selected ritual package.',
+    category: 'Payments',
+    items: [
+      {
+        question: 'What payment options are available?',
+        answer: 'We offer secure online booking with transparent pricing and support for later adjustments based on the selected ritual package.',
+      },
+    ],
   },
 ]
 
