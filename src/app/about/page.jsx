@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { brand, services } from '../../lib/data/siteData'
+import { brand, services, gayaStory, pindDaanBenefits, travelToGaya } from '../../lib/data/siteData'
 import SectionHeading from '../../components/ui/SectionHeading'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 
@@ -66,6 +66,44 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section id="gaya-story" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Why Gaya"
+          title="The sacred story behind Pind Daan at Gaya"
+          description="Passed down through generations, these are the traditions that make Gaya one of the most significant sites in Hindu dharma for honoring one's ancestors."
+          align="center"
+        />
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {gayaStory.map((item) => (
+            <article key={item.title} className="rounded-3xl border border-gold/20 bg-cream/60 p-5">
+              <p className="text-sm font-semibold text-ink">{item.title}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-cream/40 px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading
+            eyebrow="Traditional beliefs"
+            title="Why families choose to perform Pind Daan"
+            description="These are benefits held within Hindu tradition and passed down through dharmic teaching, shared here in that spirit."
+            align="center"
+          />
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {pindDaanBenefits.map((benefit) => (
+              <article key={benefit.title} className="rounded-3xl border border-gold/20 bg-white p-5 shadow-sm">
+                <p className="text-sm font-semibold text-maroon">{benefit.title}</p>
+                <p className="mt-2 text-sm leading-6 text-muted">{benefit.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
@@ -106,6 +144,40 @@ export default function AboutPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Plan your journey"
+          title="How to reach Gaya"
+          description="Whether you're flying in, taking the train, or driving from a nearby city, here's how families typically make their way to Gaya."
+          align="center"
+        />
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {travelToGaya.map((option) => (
+            <article key={option.mode} className="rounded-3xl border border-gold/20 bg-cream/60 p-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-saffron">{option.mode}</p>
+              <p className="mt-2 text-lg font-semibold text-ink">{option.title}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">{option.description}</p>
+              <p className="mt-3 rounded-2xl bg-white p-3 text-xs leading-6 text-maroon">💡 {option.tip}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-6 rounded-3xl border border-gold/20 bg-white p-5 text-center">
+          <p className="text-sm leading-6 text-muted">
+            Not sure how to plan your route? Our concierge team can help coordinate airport or station pickup once your service is booked — just{' '}
+            <Link href="/contact" className="font-semibold text-maroon hover:underline">reach out to us</Link>{' '}
+            with your travel dates.
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-3xl border border-gold/20 bg-cream/60 p-5 text-center">
+          <p className="text-sm leading-6 text-muted">
+            🏨 Need a place to stay? Contact our team and we can arrange a hotel with good facilities near the temple for your family.
+          </p>
         </div>
       </section>
 

@@ -51,7 +51,12 @@ export default async function ProcessSection() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-saffron">Sacred date planning</p>
                 <h3 className="mt-2 text-2xl font-semibold text-ink">Upcoming planning windows</h3>
               </div>
-              <span className="rounded-full bg-maroon/10 px-3 py-1 text-[10px] font-semibold text-maroon">Smart calendar</span>
+              <Link
+                href="/calendar"
+                className="rounded-full bg-maroon/10 px-3 py-1 text-[10px] font-semibold text-maroon transition-colors hover:bg-maroon/20"
+              >
+                Smart calendar
+              </Link>
             </div>
 
             <div className="mt-5 grid gap-3">

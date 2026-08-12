@@ -28,13 +28,23 @@ function initialMonth(events) {
   return { year, month }
 }
 
+const YEARS_PAST = 5
+const YEARS_FUTURE = 50
+
 export default function RitualCalendarWidget({ events }) {
-  const years = useMemo(
+  const eventYears = useMemo(
     () => [...new Set(events.map((event) => Number(event.date.slice(0, 4))))].sort((a, b) => a - b),
     [events]
   )
-  const minYear = years[0]
-  const maxYear = years[years.length - 1]
+
+  const todayYear = new Date().getFullYear()
+  const minYear = Math.min(todayYear - YEARS_PAST, eventYears[0] ?? todayYear)
+  const maxYear = Math.max(todayYear + YEARS_FUTURE, eventYears[eventYears.length - 1] ?? todayYear)
+
+  const years = useMemo(
+    () => Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i),
+    [minYear, maxYear]
+  )
 
   const [current, setCurrent] = useState(() => initialMonth(events))
 
@@ -61,7 +71,11 @@ export default function RitualCalendarWidget({ events }) {
     setCurrent({ year, month })
   }
 
-  const { monthLabel, leadingBlanks, dayCells, peakDays } = useMemo(() => {
+  function goToMonth(month) {
+    setCurrent((prev) => ({ year: prev.year, month }))
+  }
+
+  const { leadingBlanks, dayCells, peakDays } = useMemo(() => {
     const { year, month } = current
     const daysInMonth = new Date(year, month, 0).getDate()
     const firstWeekdayJs = new Date(year, month - 1, 1).getDay()
@@ -75,7 +89,6 @@ export default function RitualCalendarWidget({ events }) {
     )
 
     return {
-      monthLabel: `${monthNames[month - 1]} ${year}`,
       leadingBlanks: Array.from({ length: firstWeekdayMonday }),
       dayCells: Array.from({ length: daysInMonth }, (_, i) => i + 1),
       peakDays: peaks,
@@ -89,29 +102,11 @@ export default function RitualCalendarWidget({ events }) {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <SectionHeading
-          eyebrow="Sacred calendar"
-          title="Plan ahead across upcoming Pitru Paksha windows"
-          description="Browse month to month to see indicative ritual windows, then confirm exact tithis with your priest before booking."
-        />
-        {years.length ? (
-          <div className="flex gap-2 rounded-full border border-gold/30 bg-white p-1">
-            {years.map((year) => (
-              <button
-                key={year}
-                type="button"
-                onClick={() => goToYear(year)}
-                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-                  current.year === year ? 'bg-maroon text-white' : 'text-muted hover:text-ink'
-                }`}
-              >
-                {year}
-              </button>
-            ))}
-          </div>
-        ) : null}
-      </div>
+      <SectionHeading
+        eyebrow="Sacred calendar"
+        title="Plan ahead across upcoming Pitru Paksha windows"
+        description="Browse month to month to see indicative ritual windows, then confirm exact tithis with your priest before booking."
+      />
 
       {events.length === 0 ? (
         <div className="mt-8 rounded-[1.75rem] border border-gold/20 bg-cream/60 p-8 text-center text-sm text-muted">
@@ -132,7 +127,44 @@ export default function RitualCalendarWidget({ events }) {
               </button>
               <div className="text-center">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-saffron">Calendar overview</p>
-                <h2 className="mt-1 text-2xl font-semibold text-ink">{monthLabel}</h2>
+                <div className="mt-1.5 flex items-center justify-center gap-1.5">
+                  <div className="relative">
+                    <label htmlFor="calendar-month-select" className="sr-only">
+                      Select month
+                    </label>
+                    <select
+                      id="calendar-month-select"
+                      value={current.month}
+                      onChange={(event) => goToMonth(Number(event.target.value))}
+                      className="w-30 cursor-pointer appearance-none rounded-full border border-gold/30 bg-white py-1.5 pl-3.5 pr-7 text-center text-sm font-semibold text-ink transition-colors hover:border-saffron/50 hover:bg-cream focus:outline-none focus:ring-2 focus:ring-saffron/40"
+                    >
+                      {monthNames.map((name, index) => (
+                        <option key={name} value={index + 1}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] text-muted">▾</span>
+                  </div>
+                  <div className="relative">
+                    <label htmlFor="calendar-month-year-select" className="sr-only">
+                      Select year
+                    </label>
+                    <select
+                      id="calendar-month-year-select"
+                      value={current.year}
+                      onChange={(event) => goToYear(Number(event.target.value))}
+                      className="w-20 cursor-pointer appearance-none rounded-full border border-gold/30 bg-white py-1.5 pl-3.5 pr-7 text-center text-sm font-semibold text-ink transition-colors hover:border-saffron/50 hover:bg-cream focus:outline-none focus:ring-2 focus:ring-saffron/40"
+                    >
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] text-muted">▾</span>
+                  </div>
+                </div>
               </div>
               <button
                 type="button"
@@ -179,17 +211,23 @@ export default function RitualCalendarWidget({ events }) {
             </div>
 
             <div className="space-y-3">
-              {yearEvents.map((event) => (
-                <div key={event.id} className={`rounded-[1.25rem] border p-4 ${event.mood}`}>
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-lg font-semibold">{formatEventDate(event.date)}</p>
-                      <p className="mt-1 text-xs opacity-80">{event.note}</p>
+              {yearEvents.length ? (
+                yearEvents.map((event) => (
+                  <div key={event.id} className={`rounded-[1.25rem] border p-4 ${event.mood}`}>
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-lg font-semibold">{formatEventDate(event.date)}</p>
+                        <p className="mt-1 text-xs opacity-80">{event.note}</p>
+                      </div>
+                      <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em]">{event.label}</span>
                     </div>
-                    <span className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em]">{event.label}</span>
                   </div>
+                ))
+              ) : (
+                <div className="rounded-[1.25rem] border border-gold/20 bg-cream/60 p-4 text-sm text-muted">
+                  No sacred windows have been published for {current.year} yet.
                 </div>
-              ))}
+              )}
             </div>
 
             <p className="text-xs leading-5 text-muted">

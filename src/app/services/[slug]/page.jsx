@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { brand, getServiceBySlug, services } from '../../../lib/data/siteData'
+import ServiceGayaTeaser from '../../../components/services/ServiceGayaTeaser'
 import BookingPaymentCard from '../../../components/services/BookingPaymentCard'
 import ServiceHeroCarousel from '../../../components/services/ServiceHeroCarousel'
 import JsonLd from '../../../components/seo/JsonLd'
@@ -10,7 +11,7 @@ import { serviceSchema, breadcrumbSchema } from '../../../lib/seo/jsonld'
 const trustPoints = [
   'Verified & experienced pandits',
   '2,400+ rituals guided',
-  '100% refund on cancellation',
+  'Flexible cancellation',
 ]
 
 export async function generateStaticParams() {
@@ -143,6 +144,8 @@ export default async function ServiceDetailPage({ params }) {
                 ))}
               </div>
             </article>
+
+            <ServiceGayaTeaser />
           </div>
 
           <aside id="booking" className="scroll-mt-24 rounded-[1.75rem] border border-gold/20 bg-white p-5 shadow-sm">

@@ -2,6 +2,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import FloatingContactButtons from "../components/layout/FloatingContactButtons";
 import Providers from "../components/auth/Providers";
 import JsonLd from "../components/seo/JsonLd";
 import { organizationSchema, websiteSchema, siteUrl } from "../lib/seo/jsonld";
@@ -101,6 +102,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <FloatingContactButtons />
         </Providers>
       </body>
     </html>

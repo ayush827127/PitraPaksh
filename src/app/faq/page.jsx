@@ -1,4 +1,4 @@
-import { faqItems } from '../../lib/data/siteData'
+import { faqCategories } from '../../lib/data/siteData'
 import FAQAccordion from '../../components/faq/FAQAccordion'
 import HeroBackgroundImage from '../../components/ui/HeroBackgroundImage'
 import JsonLd from '../../components/seo/JsonLd'
@@ -30,7 +30,7 @@ export default function FAQPage() {
 
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="rounded-[1.75rem] border border-gold/20 bg-cream/60 p-5">
-          <FAQAccordion items={faqItems} />
+          <FAQAccordion categories={faqCategories} />
         </div>
       </section>
     </main>

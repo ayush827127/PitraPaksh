@@ -17,6 +17,7 @@ const contactQuerySchema = new mongoose.Schema(
       type: String,
       required: [true, 'Mobile number is required'],
       trim: true,
+      match: [/^[6-9]\d{9}$/, 'Please enter a valid 10-digit mobile number'],
     },
     serviceInterest: {
       type: String,

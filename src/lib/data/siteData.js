@@ -5,7 +5,11 @@ export const brand = {
   location: 'Vishnupad Temple Road, Gaya, Bihar 823001',
   phone: '+91 91997 70868',
   email: 'radhaenterprisesbr@gmail.com',
+  email: 'radhaenterprisesbr@gmail.com',
   whatsapp: 'https://wa.me/919199770868',
+  // No API key needed — Google's classic query-based embed, safe for production use.
+  mapEmbedUrl: 'https://www.google.com/maps?q=Vishnupad+Temple+Road,+Gaya,+Bihar+823001&output=embed',
+  mapDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Vishnupad+Temple+Road,+Gaya,+Bihar+823001',
 }
 
 export const homeStats = [
@@ -307,3 +311,72 @@ export const faqItems = [
 export function getServiceBySlug(slug) {
   return services.find((service) => service.slug === slug)
 }
+
+// The traditional story behind why Gaya is considered uniquely significant for
+// Pind Daan — presented as belief/tradition, not asserted as historical fact.
+export const gayaStory = [
+  {
+    title: 'The legend of Gayasura',
+    text: 'According to Hindu tradition, Gaya takes its name from the asura Gayasura, whose body was so pure after penance that anyone touching it attained moksha. To restrain this power responsibly, Lord Vishnu is believed to have placed his foot upon Gayasura and pressed him into the earth — the imprint of that footstep is what pilgrims venerate today at Vishnupad Temple. Vishnu is said to have blessed the site so that any ancestral rite performed here would carry lasting spiritual merit.',
+  },
+  {
+    title: 'Rama, Sita, and the banks of the Falgu',
+    text: 'The Ramayana describes Lord Rama travelling to Gaya with Sita and Lakshmana to perform Pind Daan for his father, King Dashrath. As the story is told, the men were delayed, and Sita — determined not to let the sacred moment pass — offered the pind daan herself using the sand of the Falgu River, with the river, a banyan tree, and a cow as her witnesses. This is one of the reasons Gaya\'s rituals are held to be complete and binding, even when performed by a single family member.',
+  },
+  {
+    title: 'Why Gaya is considered unique',
+    text: 'Ancestral rites (Shraddh) are traditionally performed at many sacred sites across India, often on a recurring basis. Gaya is regarded differently: tradition holds that a Pind Daan performed here, at the Falgu River and Vishnupad Temple, offers lasting peace to the ancestors\' souls without needing to be repeated elsewhere — which is why the town is often referred to with reverence as "Gayaji" by pilgrims.',
+  },
+]
+
+// Framed as traditional belief within Hindu dharma — not a medical, legal, or
+// financial claim of any kind.
+export const pindDaanBenefits = [
+  {
+    title: 'Moksha for ancestors',
+    description: 'Traditionally believed to help free departed souls from the cycle of rebirth and guide them toward lasting peace.',
+  },
+  {
+    title: 'Relief from Pitru Dosha',
+    description: 'In Vedic astrology, unresolved ancestral debt (Pitru Dosha) is associated with recurring obstacles in health, career, or family life. Pind Daan is the traditional remedy.',
+  },
+  {
+    title: 'Fulfilling Pitru Rin',
+    description: 'Hindu dharma describes a lifelong debt owed to one\'s ancestors (Pitru Rin). Performing this rite is considered a son or descendant\'s way of honoring that duty.',
+  },
+  {
+    title: 'Family harmony and blessings',
+    description: 'Many families report a sense of closure and renewed harmony after completing the rite — traditionally seen as a blessing carried forward by peaceful ancestors.',
+  },
+  {
+    title: 'A one-time, lasting rite',
+    description: 'Unlike Shraddh performed at other sacred sites, tradition holds that Pind Daan at Gaya need not be repeated in future years.',
+  },
+  {
+    title: 'Emotional and spiritual closure',
+    description: 'For many families, the ceremony offers a meaningful, structured way to grieve, honor a loved one\'s memory, and move forward together.',
+  },
+]
+
+// Practical, stable geography — kept free of time-sensitive details like flight
+// schedules or fares, which our concierge team confirms directly with families.
+export const travelToGaya = [
+  {
+    mode: 'By Air',
+    title: 'Gaya Airport (GAY)',
+    description: 'Gaya has its own airport, about 7 km from the city centre and Vishnupad Temple. It runs domestic flights year-round and additional seasonal international flights (serving Buddhist pilgrims visiting nearby Bodh Gaya) during peak pilgrimage months.',
+    tip: 'If direct flights to Gaya are limited for your dates, Patna\'s Jay Prakash Narayan International Airport is the nearest major alternative, roughly 100 km / 2–2.5 hours away by road.',
+  },
+  {
+    mode: 'By Train',
+    title: 'Gaya Junction',
+    description: 'Gaya Junction is a major railway station on the Delhi–Kolkata Grand Chord line, with direct trains from Delhi, Kolkata, Patna, Varanasi, Mumbai, and most major cities — making rail one of the most convenient ways to reach Gaya.',
+    tip: 'The station is close to the city centre, a short taxi or auto-rickshaw ride from Vishnupad Temple.',
+  },
+  {
+    mode: 'By Road',
+    title: 'National Highway 83',
+    description: 'Gaya is well connected by road via NH83, roughly 100 km (2–2.5 hours) from Patna. Regular buses and taxis run between Gaya, Patna, and Bodh Gaya.',
+    tip: 'Bodh Gaya is only about 13 km away, so many families combine both destinations in one trip.',
+  },
+]

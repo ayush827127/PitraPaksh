@@ -23,6 +23,9 @@ export async function POST(request) {
     if (!date || !name || !mobile) {
       return NextResponse.json({ error: 'Date, name, and mobile number are required' }, { status: 400 })
     }
+    if (!isValidMobile(mobile)) {
+      return NextResponse.json({ error: 'Please enter a valid 10-digit mobile number' }, { status: 400 })
+    }
 
     const todayIso = new Date().toISOString().slice(0, 10)
     if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date) || date < todayIso) {

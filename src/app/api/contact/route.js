@@ -14,6 +14,12 @@ export async function POST(request) {
         { status: 400 }
       )
     }
+    if (!isValidMobile(mobile)) {
+      return NextResponse.json(
+        { success: false, message: 'Please enter a valid 10-digit mobile number' },
+        { status: 400 }
+      )
+    }
 
     await connectDB()
     const query = await ContactQuery.create({
