@@ -3,6 +3,7 @@ import connectDB from '../../../lib/db/connect'
 import ContactQuery from '../../../lib/models/ContactQuery'
 import { sendMail } from '../../../lib/mail/mailer'
 import { contactUserConfirmationEmail, contactAdminAlertEmail } from '../../../lib/mail/templates'
+import { isValidMobile } from '../../../lib/validation'
 
 export async function POST(request) {
   try {

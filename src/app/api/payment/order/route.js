@@ -6,6 +6,7 @@ import Order from '../../../../lib/models/Order'
 import { getServiceBySlug } from '../../../../lib/data/siteData'
 import { sendMail } from '../../../../lib/mail/mailer'
 import { orderStatusEmail, orderAdminAlertEmail } from '../../../../lib/mail/templates'
+import { isValidMobile } from '../../../../lib/validation'
 
 export async function POST(request) {
   try {
