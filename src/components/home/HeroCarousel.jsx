@@ -9,7 +9,7 @@ import Link from 'next/link'
 const slides = [
   {
     id:      1,
-    image:   '/Hero_main_banner_478397efa5.webp',
+    image:   '/homebanner3.png',
     badge:   'Sacred Ancestral Services',
     heading: 'Pind Daan at\nGaya, Bihar',
     subtext: 'Perform the sacred Pind Daan ritual at the holy Falgu River and Vishnupad Temple — the most revered site for ancestral liberation.',
@@ -17,28 +17,28 @@ const slides = [
   },
   {
     id:      2,
-    image:   '/Web_Hero_3_88abdf752f.webp',
+    image:   '/homebanner2.png',
+    badge:   'Family Traditions',
+    heading: 'Celebrate Every\nSacred Occasion',
+    subtext: 'From festive pujas to family ceremonies, our certified pandits bring authentic Vedic rituals to your home with complete devotion and care.',
+    cta:     { label: 'Online Consultation', href: '/services/online-consultation' },
+  },
+  {
+    id:      3,
+    image:   '/gallery.png',
     badge:   'Ancestral Rituals',
     heading: 'Shraddh Karma\nCeremony',
     subtext: 'Connect with certified pandits for authentic Shraddh Karma rituals performed with complete Vedic procedures at sacred sites across India.',
     cta:     { label: 'Book Shraddh', href: '/services/shraddh-karma' },
   },
-  // {
-  //   id:      3,
-  //   image:   '/Hero_banner_mweb_1_dd8746b435.webp',
-  //   badge:   'Holy Immersion',
-  //   heading: 'Tarpan &\nAsthi Visarjan',
-  //   subtext: 'Offer sacred water to departed souls through Tarpan and immerse the ashes at the Ganges and other holy rivers with full ritual dignity.',
-  //   cta:     { label: 'Book Tarpan', href: '/services/tarpan' },
-  // },
-  // {
-  //   id:      4,
-  //   image:   '/614505_65ab3e8940.webp',
-  //   badge:   'Expert Pandits',
-  //   heading: 'Pandit Booking\n& Consultation',
-  //   subtext: 'Book experienced Vedic pandits for rituals at home or connect online for guidance on ancestral rites, Panchang, and spiritual ceremonies.',
-  //   cta:     { label: 'Book a Pandit', href: '/services/pandit-booking' },
-  // },
+  {
+    id:      4,
+    image:   '/homebanner1.png',
+    badge:   'Expert Pandits',
+    heading: 'Pandit Booking\n& Consultation',
+    subtext: 'Book experienced Vedic pandits for rituals at home or connect online for guidance on ancestral rites, Panchang, and spiritual ceremonies.',
+    cta:     { label: 'Book a Pandit', href: '/services/pandit-booking' },
+  },
 ]
 
 const AUTO_PLAY_MS = 5000

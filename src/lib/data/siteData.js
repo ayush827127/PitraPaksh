@@ -5,7 +5,6 @@ export const brand = {
   location: 'Vishnupad Temple Road, Gaya, Bihar 823001',
   phone: '+91 91997 70868',
   email: 'radhaenterprisesbr@gmail.com',
-  email: 'radhaenterprisesbr@gmail.com',
   whatsapp: 'https://wa.me/919199770868',
   // No API key needed — Google's classic query-based embed, safe for production use.
   mapEmbedUrl: 'https://www.google.com/maps?q=Vishnupad+Temple+Road,+Gaya,+Bihar+823001&output=embed',
@@ -291,31 +290,145 @@ export const galleryItems = [
 
 export const faqCategories = [
   {
-    category: 'Booking & Planning',
+    category: 'Booking & Scheduling',
     items: [
       {
         question: 'How do I book a ritual service?',
-        answer: 'Select a service, choose a preferred date, and share your family details. Our team confirms priest availability and sends the complete itinerary.',
+        answer: 'Log in, select a service, choose your preferred date, and share your name and mobile number. Once payment is confirmed, your booking appears under "My Orders" and our team reaches out to coordinate priest and temple logistics.',
       },
       {
-        question: 'Can I book online consultation from outside India?',
-        answer: 'Yes. Remote consultations are available for pilgrims living abroad and for families planning travel before arrival.',
+        question: 'How far in advance should I book?',
+        answer: 'We recommend booking at least a few days ahead, especially during Pitru Paksha and other high-demand sacred windows, so we can confirm your preferred priest and temple time slot. Check the Calendar / Panchang page for upcoming planning windows.',
       },
       {
-        question: 'Do you offer temple and transport coordination?',
-        answer: 'Yes, local site coordination, temple logistics, and local transport support can be arranged as add-ons and custom support.',
+        question: 'Can I request a specific pandit?',
+        answer: 'Yes. Our Pandit Booking service lets you share your requirements and ritual style preferences, and we match you with one of our verified pandits based on availability.',
+      },
+      {
+        question: 'Can I change my preferred date after booking?',
+        answer: 'Yes — contact us by phone or WhatsApp with your Order ID (visible on the "My Orders" page) as early as possible, and we’ll help you move to a new available date, subject to priest and temple availability.',
       },
     ],
   },
   {
-    category: 'Payments',
+    category: 'Services & Pricing',
     items: [
       {
-        question: 'What payment options are available?',
-        answer: 'We offer secure online booking with transparent pricing and support for later adjustments based on the selected ritual package.',
+        question: 'What services do you offer?',
+        answer: 'Pind Daan, Shraddh Karma, Tarpan, Asthi Visarjan, Pandit Booking, and Online Consultation — each with its own inclusions, duration, and pricing on the Services page.',
+      },
+      {
+        question: "What's the difference between Pind Daan, Shraddh Karma, and Tarpan?",
+        answer: 'Pind Daan is the core ancestral rite performed at the Falgu River and Vishnupad Temple. Shraddh Karma is a broader family ceremony for ancestral observance. Tarpan is a focused water-offering ritual, often done during specific sacred windows. Each service page has a full description, process, and inclusions list.',
+      },
+      {
+        question: "Can't travel to Gaya? Is remote support available?",
+        answer: 'Yes — our Online Consultation service connects you with a priest by video or phone call for ritual planning, calendar guidance, and remote support, ideal for NRI families and pilgrims planning travel later.',
+      },
+      {
+        question: 'Can I combine multiple services, like Pind Daan and Asthi Visarjan, in one visit?',
+        answer: 'Yes, many families combine services during a single trip. Book each service separately or contact our team directly to coordinate a combined multi-day itinerary.',
+      },
+      {
+        question: 'Are the listed prices final?',
+        answer: 'Listed prices reflect our standard packages. If your family has a larger group or custom requirements, we’ll confirm any adjustments with you before you pay — nothing changes after payment without your agreement.',
       },
     ],
   },
+  {
+    category: 'Payments & Security',
+    items: [
+      {
+        question: 'What payment methods can I use?',
+        answer: 'All major cards, UPI, netbanking, and wallets, powered securely by Razorpay.',
+      },
+      {
+        question: 'Is it safe to pay online here?',
+        answer: 'Yes. Payments are processed directly by Razorpay, a PCI-DSS compliant payment gateway. We never see or store your card, UPI, or bank account details on our servers.',
+      },
+      {
+        question: 'Will I get a receipt for my payment?',
+        answer: 'Your payment and booking details are recorded under "My Orders" in your account immediately after a successful payment. If you need a formal receipt for your records, contact our support team with your Order ID.',
+      },
+      {
+        question: 'My payment was deducted but the booking didn’t confirm — what do I do?',
+        answer: 'Please don’t attempt the payment again. Contact us immediately with your payment reference number, and we’ll verify it against Razorpay’s records and resolve it promptly.',
+      },
+    ],
+  },
+  {
+    category: 'Travel & On-Ground Logistics',
+    items: [
+      {
+        question: 'Do you provide hotel pickup?',
+        answer: 'Several services include optional hotel pickup within Gaya city — check the "starting point" detail on each service page. Let us know your stay location when booking so we can coordinate.',
+      },
+      {
+        question: 'What should I bring to the ceremony?',
+        answer: 'After booking, our team shares a checklist tailored to your ritual, which typically covers family/gotra details to prepare in advance and any items the priest requests. Comfortable, modest attire suitable for temple visits is recommended.',
+      },
+      {
+        question: 'How long does a ritual take?',
+        answer: 'It varies by service — from 30–60 minutes for an online consultation up to 6–8 hours for Asthi Visarjan. Exact durations are listed on each service page.',
+      },
+      {
+        question: 'Is accommodation included in the package?',
+        answer: 'Accommodation isn’t included by default, but our team can help coordinate nearby stays and local transport as part of your planning — just mention it when you book or reach out beforehand.',
+      },
+    ],
+  },
+  {
+    category: 'Cancellations & Rescheduling',
+    items: [
+      {
+        question: 'Can I cancel a booking?',
+        answer: 'Yes — contact us by phone or WhatsApp with your Order ID as soon as your plans change, and our team will guide you through cancellation.',
+      },
+      {
+        question: 'Can I reschedule instead of cancelling?',
+        answer: 'In most cases, yes. We’ll do our best to move your booking to a new date, subject to priest and temple availability at that time.',
+      },
+      {
+        question: 'What if I need to change plans at the last minute?',
+        answer: 'Reach out to us right away — the earlier you let us know, the more options we have. Our team handles last-minute changes case by case, so talk to us before assuming anything is fixed.',
+      },
+    ],
+  },
+  {
+    category: 'Account & Support',
+    items: [
+      {
+        question: 'Do I need an account to book a service?',
+        answer: 'Yes — sign up with email or Google login so we can confirm your booking and let you track it under "My Orders" anytime.',
+      },
+      {
+        question: 'How do I check my booking status?',
+        answer: 'Go to "My Orders" from your account menu — each booking shows a clear status: pending, paid, or failed.',
+      },
+      {
+        question: 'Are your pandits verified?',
+        answer: 'Yes — every pandit on our platform is vetted for credentials and ritual expertise before being onboarded, so you can book with confidence.',
+      },
+      {
+        question: 'How can I reach your support team?',
+        answer: 'Call or WhatsApp us anytime using the floating buttons on any page, use the contact form, or email us directly. We typically respond within 30 minutes during service hours.',
+      },
+      {
+        question: 'Can families living outside India use this service?',
+        answer: 'Absolutely. We regularly support NRI families through online consultations and remote booking coordination before they travel to Gaya.',
+      },
+    ],
+  },
+]
+
+// Flat list — kept for anywhere a simple, ungrouped FAQ array is needed.
+export const faqItems = faqCategories.flatMap((group) => group.items)
+
+export const ritualCalendar = [
+  { day: 'May 28', label: 'Pind Daan focus', note: 'High-demand sacred day', mood: 'bg-maroon text-white' },
+  { day: 'Jun 02', label: 'Shraddh support window', note: 'Ideal for family visits', mood: 'bg-saffron text-white' },
+  { day: 'Jun 11', label: 'Tarpan consultation slot', note: 'Best for early planning', mood: 'bg-gold text-ink' },
+  { day: 'Jun 16', label: 'Pandit booking day', note: 'Premium priest availability', mood: 'bg-cream text-maroon border border-gold/30' },
 ]
 
 export function getServiceBySlug(slug) {
