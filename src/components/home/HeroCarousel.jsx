@@ -8,36 +8,40 @@ import Link from 'next/link'
 // ─────────────────────────────────────────────────────────────
 const slides = [
   {
-    id:      1,
-    image:   '/homebanner3.png',
-    badge:   'Sacred Ancestral Services',
-    heading: 'Pind Daan at\nGaya, Bihar',
-    subtext: 'Perform the sacred Pind Daan ritual at the holy Falgu River and Vishnupad Temple — the most revered site for ancestral liberation.',
-    cta:     { label: 'Book Pind Daan', href: '/services/pind-daan' },
+    id:       1,
+    image:    '/homebanner3.png',
+    imagePos: 'center 30%',
+    badge:    'Sacred Ancestral Services',
+    heading:  'Pind Daan at\nGaya, Bihar',
+    subtext:  'Perform the sacred Pind Daan ritual at the holy Falgu River and Vishnupad Temple — the most revered site for ancestral liberation.',
+    cta:      { label: 'Book Pind Daan', href: '/services/pind-daan' },
   },
   {
-    id:      2,
-    image:   '/homebanner2.png',
-    badge:   'Family Traditions',
-    heading: 'Celebrate Every\nSacred Occasion',
-    subtext: 'From festive pujas to family ceremonies, our certified pandits bring authentic Vedic rituals to your home with complete devotion and care.',
-    cta:     { label: 'Online Consultation', href: '/services/online-consultation' },
+    id:       2,
+    image:    '/home1.png',
+    imagePos: 'center 10%',
+    badge:    'Family Traditions',
+    heading:  'Celebrate Every\nSacred Occasion',
+    subtext:  'From festive pujas to family ceremonies, our certified pandits bring authentic Vedic rituals to your home with complete devotion and care.',
+    cta:      { label: 'Online Consultation', href: '/services/online-consultation' },
   },
   {
-    id:      3,
-    image:   '/gallery.png',
-    badge:   'Ancestral Rituals',
-    heading: 'Shraddh Karma\nCeremony',
-    subtext: 'Connect with certified pandits for authentic Shraddh Karma rituals performed with complete Vedic procedures at sacred sites across India.',
-    cta:     { label: 'Book Shraddh', href: '/services/shraddh-karma' },
+    id:       3,
+    image:    '/gallery.png',
+    imagePos: 'center 35%',
+    badge:    'Ancestral Rituals',
+    heading:  'Shraddh Karma\nCeremony',
+    subtext:  'Connect with certified pandits for authentic Shraddh Karma rituals performed with complete Vedic procedures at sacred sites across India.',
+    cta:      { label: 'Book Shraddh', href: '/services/shraddh-karma' },
   },
   {
-    id:      4,
-    image:   '/homebanner1.png',
-    badge:   'Expert Pandits',
-    heading: 'Pandit Booking\n& Consultation',
-    subtext: 'Book experienced Vedic pandits for rituals at home or connect online for guidance on ancestral rites, Panchang, and spiritual ceremonies.',
-    cta:     { label: 'Book a Pandit', href: '/services/pandit-booking' },
+    id:       4,
+    image:    '/home2.png',
+    imagePos: 'center 8%',
+    badge:    'Expert Pandits',
+    heading:  'Pandit Booking\n& Consultation',
+    subtext:  'Book experienced Vedic pandits for rituals at home or connect online for guidance on ancestral rites, Panchang, and spiritual ceremonies.',
+    cta:      { label: 'Book a Pandit', href: '/services/pandit-booking' },
   },
 ]
 
@@ -91,7 +95,8 @@ export default function HeroCarousel() {
             alt={s.heading.replace('\n', ' ')}
             fill
             priority={i === 0}
-            className="object-cover object-center"
+            className="object-cover"
+            style={{ objectPosition: s.imagePos || 'center' }}
           />
         </div>
       ))}
