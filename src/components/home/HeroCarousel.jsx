@@ -12,7 +12,7 @@ const slides = [
     image:    '/homebanner3.png',
     imagePos: 'center 30%',
     badge:    'Sacred Ancestral Services',
-    heading:  'Pind Daan at\nGaya, Bihar',
+    heading:  'Pind Daan at\nGaya Ji, Bihar',
     subtext:  'Perform the sacred Pind Daan ritual at the holy Falgu River and Vishnupad Temple — the most revered site for ancestral liberation.',
     cta:      { label: 'Book Pind Daan', href: '/services/pind-daan' },
   },
